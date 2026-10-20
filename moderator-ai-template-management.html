@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mẫu AI – SpendWise</title>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/ai.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+<div id="app-root" data-role="moderator" data-crumbs="Kiểm duyệt viên|Mẫu AI"></div>
+
+<template id="page-content">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:22px">
+    <div><h1 class="page-title">AI Template Management</h1><p class="page-sub">Quản lý prompt, fallback và ngưỡng tin cậy.</p></div>
+    <button class="btn primary" onclick="toast('Đã tạo mẫu mới (demo)','ok')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+      Tạo mẫu
+    </button>
+  </div>
+
+  <div class="table-wrap" style="margin-bottom:20px">
+    <table><thead><tr><th>Mẫu</th><th>Phiên bản</th><th>Trạng thái</th><th>Lần cập nhật</th><th>Thao tác</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><b>Expense Categorizer</b></td><td>v2.4</td><td><span class="badge ok">Đang bật</span></td><td>30/09</td>
+          <td><div class="row-actions">
+            <a onclick="toast('Đã mở chỉnh sửa Expense Categorizer','wr')">Sửa</a> ·
+            <a onclick="document.getElementById('testInput').value='Phúc Long 96.000 đ';toast('Đã nạp input mẫu','ok')">Test</a>
+          </div></td>
+        </tr>
+        <tr>
+          <td><b>Spending Pattern Insight</b></td><td>v1.8</td><td><span class="badge ok">Đang bật</span></td><td>29/09</td>
+          <td><div class="row-actions">
+            <a onclick="toast('Đã mở chỉnh sửa','wr')">Sửa</a> ·
+            <a onclick="document.getElementById('testInput').value='Phân tích chi tiêu 30 ngày';toast('Đã nạp input mẫu','ok')">Test</a>
+          </div></td>
+        </tr>
+        <tr>
+          <td><b>Goal Coach</b></td><td>v1.3</td><td><span class="badge er">Tạm tắt</span></td><td>27/09</td>
+          <td><div class="row-actions">
+            <a onclick="toast('Đã mở chỉnh sửa','wr')">Sửa</a> ·
+            <a onclick="document.getElementById('testInput').value='Tiết kiệm 10 triệu trong 6 tháng';toast('Đã nạp input mẫu','ok')">Test</a>
+          </div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid g2" style="align-items:start">
+    <div class="card">
+      <div class="section-title">Sửa Expense Categorizer <span class="badge muted">v2.4</span></div>
+      <form id="tplForm" style="display:flex;flex-direction:column;gap:12px">
+        <div class="field"><label>Tên mẫu</label><input type="text" value="Expense Categorizer" data-required><span class="err"></span></div>
+        <div class="field"><label>Prompt hệ thống</label><input type="text" value="Phân loại giao dịch theo mô tả, số tiền và lịch sử gần nhất." data-required><span class="err"></span></div>
+        <div class="field"><label>Fallback</label><input type="text" value="Khác"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="field"><label>Ngưỡng confidence</label><select><option>0.75</option><option>0.85</option></select></div>
+          <div class="field"><label>Ngôn ngữ</label><select><option>Tiếng Việt</option><option>English</option></select></div>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn primary" type="submit">Lưu phiên bản</button>
+          <button class="btn" type="button" onclick="toast('Đã khôi phục về v2.3','wr')">Khôi phục v2.3</button>
+          <button class="btn" type="button" onclick="toast('Đã tạm tắt mẫu','er')">Tạm tắt</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="test-console">
+      <div class="test-console-head">
+        <div class="title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.8 5.2L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.8z"/></svg>
+          Test Console
+        </div>
+        <span class="status" id="testStatus">Sẵn sàng</span>
+      </div>
+
+      <div class="test-input-row">
+        <div class="field">
+          <label>Input test</label>
+          <input type="text" id="testInput" value="Phúc Long 96.000 đ" placeholder="Nhập mô tả giao dịch...">
+        </div>
+        <button class="btn primary" id="runTest" type="button">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Chạy test
+        </button>
+      </div>
+
+      <div class="test-output" id="testOutput">
+        <div class="placeholder">Nhập input và nhấn "Chạy test" để xem kết quả phân loại.</div>
+      </div>
+
+      <div class="test-history">
+        <div class="label">Lịch sử test gần đây</div>
+        <div id="testHistory">
+          <div class="item"><span>Phúc Long 96.000 đ</span><span class="badge ok">Ăn uống · 94%</span></div>
+          <div class="item"><span>Grab 72.000 đ</span><span class="badge info">Di chuyển · 91%</span></div>
+          <div class="item"><span>Netflix 260.000 đ</span><span class="badge pu">Giải trí · 86%</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script src="js/data.js"></script>
+<script src="js/core.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/moderator-ai.js"></script>
+</body>
+</html>

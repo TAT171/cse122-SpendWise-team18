@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quản lý người dùng – SpendWise</title>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+<div id="app-root" data-role="admin" data-crumbs="Quản trị viên|Người dùng"></div>
+
+<template id="page-content">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:22px">
+    <div><h1 class="page-title">User Management</h1><p class="page-sub">Quản lý tài khoản, vai trò và trạng thái truy cập.</p></div>
+    <button class="btn primary" onclick="toast('Đã mở form mời tài khoản','wr')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+      Mời tài khoản
+    </button>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:10px">
+    <div style="color:#567a88;font-size:13px" data-selected-info>Đã chọn 0 người dùng</div>
+    <div style="display:flex;gap:10px">
+    <button class="btn danger" onclick="openModal('disableModal')">Vô hiệu hóa</button>
+    </div>
+  </div>
+  <div class="table-wrap" style="margin-bottom:20px">
+    <table><thead><tr><th style="width:36px"></th><th>Người dùng</th><th>Vai trò</th><th>Trạng thái</th><th>Đăng nhập cuối</th><th>Thao tác</th></tr></thead>
+      <tbody id="userBody"></tbody>
+    </table>
+  </div>
+  <div class="grid g2">
+    <div class="card">
+      <div class="section-title">Xác nhận vô hiệu hóa</div>
+      <p style="color:#567a88;margin-bottom:14px"><span id="disableCount">0</span> tài khoản đã chọn sẽ không thể đăng nhập cho đến khi được kích hoạt lại.</p>
+      <div class="field" style="margin-bottom:12px"><label>Lý do</label><input type="text" id="disableReason" placeholder="Nhập lý do..."></div>
+      <div style="display:flex;gap:10px">
+        <button class="btn danger" onclick="handleDisable()">Xác nhận</button>
+        <button class="btn" onclick="toast('Đã hủy thao tác','wr')">Hủy</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="section-title">Mời tài khoản</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+        <div class="field"><label>Email</label><input type="email" value="newuser@email.com"></div>
+        <div class="field"><label>Vai trò</label><select><option>Người dùng</option><option>Huấn luyện viên</option><option>Kiểm duyệt</option></select></div>
+      </div>
+      <button class="btn primary" onclick="toast('Đã gửi lời mời tới newuser@email.com','ok')">Gửi lời mời</button>
+    </div>
+  </div>
+  <div class="modal-backdrop" id="disableModal">
+    <div class="modal">
+      <div class="modal-head"><h3>Xác nhận vô hiệu hóa tài khoản</h3>
+        <button class="icon-btn" onclick="closeModal('disableModal')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      </div>
+      <p style="color:#567a88;margin-bottom:14px">Hành động này sẽ khóa tài khoản được chọn cho đến khi Admin kích hoạt lại.</p>
+      <div style="display:flex;gap:10px">
+        <button class="btn danger" onclick="closeModal('disableModal');toast('Đã vô hiệu hóa tài khoản','er')">Xác nhận</button>
+        <button class="btn" onclick="closeModal('disableModal')">Hủy</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script src="js/data.js"></script>
+<script src="js/core.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/admin-users.js"></script>
+</body>
+</html>
