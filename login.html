@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Đăng nhập – SpendWise</title>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+<div class="auth">
+  <header class="auth-header">
+  <a class="logo" href="login.html"><span class="logo-mark">▢</span> SpendWise</a>
+</header>
+  <div class="auth-body">
+    <div class="auth-panel left">
+      <h1>Mỗi đồng đều có mục đích.</h1>
+      <p>Theo dõi chi tiêu, giữ đúng ngân sách và nhận gợi ý rõ ràng cho mọi quyết định.</p>
+      <div class="auth-illust"></div>
+    </div>
+    <div class="auth-panel right">
+      <h2>Chào mừng trở lại</h2>
+      <p class="sub">Đăng nhập để tiếp tục quản lý tài chính.</p>
+      <form class="auth-form" id="loginForm" novalidate>
+        <div class="field full"><label>Email</label><input type="email" value="minhanh@email.com" data-required><span class="err"></span></div>
+        <div class="field full"><label>Mật khẩu</label><input type="password" value="12345678" data-required><span class="err"></span></div>
+        <div class="check full"><input type="checkbox" checked id="rem"><label for="rem" style="margin:0">Ghi nhớ đăng nhập</label></div>
+        <div class="auth-msg full" id="loginMsg"></div>
+        <div class="full"><button class="btn primary" type="submit">Đăng nhập</button></div>
+        </form>
+      <div class="demo-divider">Hoặc trải nghiệm nhanh với vai trò</div>
+      <div class="demo-roles">
+        <button type="button" class="demo-role-btn" onclick="demoLogin('user')"><span class="ico">👤</span><span>Người dùng<small>Quản lý chi tiêu & mục tiêu</small></span></button>
+        <button type="button" class="demo-role-btn" onclick="demoLogin('coach')"><span class="ico">📊</span><span>Huấn luyện viên<small>Review ngân sách khách hàng</small></span></button>
+        <button type="button" class="demo-role-btn" onclick="demoLogin('moderator')"><span class="ico">✅</span><span>Kiểm duyệt viên<small>Duyệt nội dung & mẫu AI</small></span></button>
+        <button type="button" class="demo-role-btn" onclick="demoLogin('admin')"><span class="ico">⚙️</span><span>Quản trị viên<small>Quản lý hệ thống & người dùng</small></span></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/core.js"></script>
+<script src="js/auth.js"></script>
+</body>
+</html>
