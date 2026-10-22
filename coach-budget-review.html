@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Duyệt ngân sách – SpendWise</title>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+<div id="app-root" data-role="coach" data-crumbs="Huấn luyện viên|Duyệt ngân sách"></div>
+
+<template id="page-content">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:22px">
+    <div><h1 class="page-title">Duyệt ngân sách</h1><p class="page-sub">So sánh kế hoạch và thực tế của khách hàng.</p></div>
+    <select class="btn" style="padding:9px 14px" onchange="toast('Đang xem: '+this.value,'ok')">
+      <option>Nguyễn Minh Anh</option><option>Trần Quốc Bảo</option>
+    </select>
+  </div>
+  <div class="grid g3" style="margin-bottom:16px">
+    <div class="stat"><div class="label">Ngân sách tháng <span class="badge-icon">≡</span></div><div class="value">20.000.000 đ</div></div>
+    <div class="stat"><div class="label">Đã chi <span class="badge-icon" style="background:#fdeaea;color:#e05252">▢</span></div><div class="value">12.680.000 đ</div><div class="delta down">63% kế hoạch</div></div>
+    <div class="stat"><div class="label">Chênh lệch <span class="badge-icon" style="background:#e4f6eb;color:#2e9e5b">↗</span></div><div class="value">+1.320.000 đ</div><div class="delta up">Tốt hơn dự kiến</div></div>
+  </div>
+  <div class="grid g2" style="margin-bottom:16px">
+    <div class="card">
+      <div class="section-title">Kế hoạch và thực tế <span class="badge muted">Tháng 10</span></div>
+      <table><thead><tr><th>Danh mục</th><th>Kế hoạch</th><th>Thực tế</th><th>Chênh lệch</th></tr></thead>
+        <tbody>
+          <tr><td>Ăn uống</td><td>4.000.000 đ</td><td>3.120.000 đ</td><td style="color:#2e9e5b">-880.000 đ</td></tr>
+          <tr><td>Di chuyển</td><td>2.000.000 đ</td><td>2.450.000 đ</td><td style="color:#e05252">+450.000 đ</td></tr>
+          <tr><td>Mua sắm</td><td>2.500.000 đ</td><td>3.100.000 đ</td><td style="color:#e05252">+600.000 đ</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="section-title">Mức sử dụng <span style="font-size:13px;color:#567a88">Theo danh mục</span></div>
+      <div style="display:flex;align-items:flex-end;justify-content:space-around;height:200px;padding:20px 6px 0">
+        <div style="text-align:center"><div style="height:100px;width:44px;background:#bfeaf4;border-radius:6px 6px 0 0"></div><div style="font-size:12px;margin-top:6px;color:#567a88">Ăn</div></div>
+        <div style="text-align:center"><div style="height:76px;width:44px;background:#bfeaf4;border-radius:6px 6px 0 0"></div><div style="font-size:12px;margin-top:6px;color:#567a88">Đi lại</div></div>
+        <div style="text-align:center"><div style="height:130px;width:44px;background:#bfeaf4;border-radius:6px 6px 0 0"></div><div style="font-size:12px;margin-top:6px;color:#567a88">Mua</div></div>
+        <div style="text-align:center"><div style="height:56px;width:44px;background:#bfeaf4;border-radius:6px 6px 0 0"></div><div style="font-size:12px;margin-top:6px;color:#567a88">Khác</div></div>
+      </div>
+      <div class="badge er" style="display:block;margin-top:12px;padding:10px 14px;text-align:left">⚠ Mua sắm cao hơn kế hoạch 600.000 đ.</div>
+    </div>
+  </div>
+  <div class="grid g2">
+    <div class="card">
+      <div class="section-title">Khoản chi bất thường <span class="badge wr">2 phát hiện</span></div>
+      <div class="badge er" style="display:block;margin-bottom:8px;padding:10px 14px;text-align:left;cursor:pointer" onclick="toast('Xem chi tiết khoản chi Điện tử','wr')">1.280.000 đ · Điện tử · 28/09</div>
+      <div class="badge er" style="display:block;padding:10px 14px;text-align:left;cursor:pointer" onclick="toast('Xem chi tiết khoản chi Ăn uống','wr')">890.000 đ · Ăn uống · 30/09</div>
+    </div>
+    <div class="card">
+      <div class="section-title">Ghi chú huấn luyện viên <span class="badge muted">Đang chỉnh sửa</span></div>
+      <form id="noteForm">
+        <div class="field" style="margin-bottom:12px"><label>Tiêu đề</label><input type="text" value="Điều chỉnh ngân sách mua sắm" data-required><span class="err"></span></div>
+        <div class="field" style="margin-bottom:12px"><label>Nội dung</label><textarea id="note" data-required>Đề nghị giảm mua sắm 500.000 đ và chuyển sang quỹ khẩn cấp.</textarea><span class="err"></span></div>
+        <div style="display:flex;gap:10px"><button class="btn primary" type="submit">Lưu ghi chú</button><button class="btn" type="button" onclick="toast('Đã hủy','wr')">Hủy</button></div>
+      </form>
+    </div>
+  </div>
+</template>
+
+<script src="js/core.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/coach-budget.js"></script>
+</body>
+</html>
