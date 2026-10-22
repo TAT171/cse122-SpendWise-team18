@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Danh mục chi tiêu – SpendWise</title>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+<div id="app-root" data-role="admin" data-crumbs="Quản trị viên|Danh mục chi tiêu"></div>
+
+<template id="page-content">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:22px">
+    <div><h1 class="page-title">Expense Category Management</h1><p class="page-sub">Quản lý danh mục dùng chung cho giao dịch.</p></div>
+    <button class="btn primary" onclick="openModal('catModal')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+      Thêm danh mục
+    </button>
+  </div>
+  <div class="table-wrap" style="margin-bottom:20px">
+    <table><thead><tr><th>Biểu tượng</th><th>Tên danh mục</th><th>Màu</th><th>Từ khoá</th><th>Lượt dùng</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>
+      <tbody id="catBody"></tbody>
+    </table>
+  </div>
+  <div class="modal-backdrop" id="catModal">
+    <div class="modal">
+      <div class="modal-head"><h3>Thêm danh mục</h3>
+        <button class="icon-btn" onclick="closeModal('catModal')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      </div>
+      <form id="catForm" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="field"><label>Tên</label><input type="text" data-required><span class="err"></span></div>
+        <div class="field"><label>Màu</label><input type="color" value="#7fd4e8"></div>
+        <div class="field" style="grid-column:1/-1"><label>Từ khoá</label><input type="text" placeholder="cafe, nhà hàng, ..."></div>
+        <div style="grid-column:1/-1;display:flex;gap:10px">
+          <button class="btn primary" type="submit">Lưu danh mục</button>
+          <button class="btn" type="button" onclick="closeModal('catModal')">Hủy</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</template>
+
+<script src="js/data.js"></script>
+<script src="js/core.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/admin-categories.js"></script>
+</body>
+</html>

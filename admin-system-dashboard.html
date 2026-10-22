@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hệ thống – SpendWise</title>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+<div id="app-root" data-role="admin" data-crumbs="Quản trị viên|Hệ thống"></div>
+
+<template id="page-content">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:22px">
+    <div><h1 class="page-title">System Dashboard</h1><p class="page-sub">Sức khỏe nền tảng và hoạt động vận hành.</p></div>
+    <div style="display:flex;gap:10px">
+      <button class="btn" onclick="toast('Đang xuất báo cáo…','ok')">Xuất báo cáo</button>
+      <button class="btn primary" onclick="toast('Đã mở form tạo thông báo','wr')">Tạo thông báo</button>
+    </div>
+  </div>
+
+  <!-- ═══ HÀNG 1: Tài nguyên chờ duyệt (FULL WIDTH) ═══ -->
+  <div class="card" style="margin-bottom:16px">
+    <div class="section-title">Tài nguyên chờ duyệt <span class="badge muted" id="adminPendingBadge">0 mục</span></div>
+    <table>
+      <thead><tr><th>Tiêu đề</th><th>Người gửi</th><th>Cập nhật</th><th>Trạng thái</th></tr></thead>
+      <tbody id="adminPendingBody"></tbody>
+    </table>
+  </div>
+
+  <!-- ═══ HÀNG 2: 2 dashboard ═══ -->
+  <div class="grid g2" style="margin-bottom:16px">
+    <div class="card">
+      <div class="section-title">Người dùng mới <span class="badge muted">7 ngày</span></div>
+      <div style="display:flex;align-items:flex-end;justify-content:space-around;height:160px;padding:10px 4px 0">
+        <div style="text-align:center"><div style="height:60px;width:34px;background:#bfeaf4;border-radius:6px 6px 0 0"></div><div style="font-size:11.5px;color:#567a88;margin-top:6px">25</div></div>
+        <div style="text-align:center"><div style="height:88px;width:34px;background:#bfeaf4;border-radius:6px 6px 0 0"></div><div style="font-size:11.5px;color:#567a88;margin-top:6px">26</div></div>
+        <div style="text-align:center"><div style="height:54px;width:34px;background:#bfeaf4;border-radius:6px 6px 0 0"></div><div style="font-size:11.5px;color:#567a88;margin-top:6px">27</div></div>
+        <div style="text-align:center"><div style="height:104px;width:34px;background:#bfeaf4;border-radius:6px 6px 0 0"></div><div style="font-size:11.5px;color:#567a88;margin-top:6px">28</div></div>
+        <div style="text-align:center"><div style="height:92px;width:34px;background:#bfeaf4;border-radius:6px 6px 0 0"></div><div style="font-size:11.5px;color:#567a88;margin-top:6px">29</div></div>
+        <div style="text-align:center"><div style="height:118px;width:34px;background:#bfeaf4;border-radius:6px 6px 0 0"></div><div style="font-size:11.5px;color:#567a88;margin-top:6px">30</div></div>
+        <div style="text-align:center"><div style="height:70px;width:34px;background:#bfeaf4;border-radius:6px 6px 0 0"></div><div style="font-size:11.5px;color:#567a88;margin-top:6px">01</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="section-title">Tỷ lệ phản hồi AI <span class="badge muted">4.820 lượt</span></div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px"><span>Chấp nhận</span><span>72%</span></div><div class="progress"><div class="bar ok" style="width:72%"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px"><span>Chỉnh sửa</span><span>19%</span></div><div class="progress"><div class="bar er" style="width:19%"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px"><span>Từ chối</span><span>9%</span></div><div class="progress"><div class="bar er" style="width:9%"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ HÀNG 3: 2 dashboard ═══ -->
+  <div class="grid g2" style="margin-bottom:16px">
+    <div class="card">
+      <div class="section-title">Tài nguyên chờ duyệt <span class="badge muted">8 mục</span></div>
+      <table>
+        <thead><tr><th>Tiêu đề</th><th>Người gửi</th><th>Chờ</th><th>Ưu tiên</th></tr></thead>
+        <tbody>
+          <tr><td>Ăn uống tiết kiệm</td><td>Thu Trang</td><td>3 giờ</td><td>Bình thường</td></tr>
+          <tr><td>Đầu tư cho người mới</td><td>Quốc Minh</td><td>27 giờ</td><td style="color:#e05252">Cao</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="section-title">Cảnh báo hệ thống <span class="badge muted">3 cảnh báo</span></div>
+      <div class="badge er" style="display:block;padding:10px 14px;text-align:left;margin-bottom:8px;cursor:pointer" onclick="toast('Xem chi tiết cảnh báo API','wr')">⚠ Tỷ lệ phản hồi API tăng 12% trong 15 phút.</div>
+      <div class="badge ok" style="display:block;padding:10px 14px;text-align:left">✓ Sao lưu dữ liệu hoàn tất lúc 02:00.</div>
+    </div>
+  </div>
+
+  <!-- ═══ HÀNG 4: 2 dashboard ═══ -->
+  <div class="grid g2">
+    <div class="card">
+      <div class="section-title">Activity log <span class="badge muted">Theo thời gian thực</span></div>
+      <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;color:#567a88">
+        <div>● 09:32 · Lan Anh duyệt tài nguyên #RS-312</div>
+        <div>● 09:28 · Hệ thống cập nhật AI template v2.4</div>
+        <div>● 09:15 · Admin mời 3 tài khoản mới</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="section-title">Quick actions</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn" onclick="toast('Đã mở form mời người dùng','wr')">Mời người dùng</button>
+        <button class="btn" onclick="location.href='admin-expense-category-management.html'">Quản lý danh mục</button>
+        <button class="btn" onclick="toast('Đang mở hàng đợi duyệt…','wr')">Xem hàng đợi</button>
+        <button class="btn dark" onclick="toast('Đã mở cấu hình AI','wr')">Cấu hình AI</button>
+      </div>
+    </div>
+  </div>
+</template>
+<script src="js/data.js"></script>
+<script src="js/core.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/admin-system.js"></script>
+</body>
+</html>
