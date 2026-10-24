@@ -16,7 +16,7 @@
 
 <template id="page-content">
   <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:22px">
-    <div><h1 class="page-title">Mục tiêu tiết kiệm</h1><p class="page-sub">Biến kế hoạch lớn thành những bước nhỏ mỗi tháng.</p></div>
+    <div><h1 class="page-title">Mục tiêu tiết kiệm</h1><p class="page-sub">Biến kế hoạch lớn thành những mục tiêu nhỏ mỗi tháng.</p></div>
     <button class="btn primary" onclick="document.getElementById('newGoal').scrollIntoView({behavior:'smooth'});toast('Cuộn tới form tạo mục tiêu','wr')">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
       Tạo mục tiêu
@@ -36,7 +36,7 @@
       <div class="field"><label>Thời hạn</label><input type="date" id="gDeadline" value="2027-06-30"></div>
       <div class="field"><label>Loại</label><input type="text" id="gType" value="Chi tiêu"></div>
       <div style="grid-column:1/-1;display:flex;gap:10px">
-        <button class="btn primary" type="submit">Lưu mục tiêu</button>
+        <button class="btn primary" type="submit">Lưu mục tiêu tích kiệm</button>
         <button class="btn" type="button" onclick="toast('Đã hủy','wr')">Hủy</button>
       </div>
     </form>
