@@ -15,7 +15,12 @@
 <template id="page-content">
   <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:22px">
     <div><h1 class="page-title">Duyệt tài nguyên</h1><p class="page-sub">Kiểm tra nội dung trước khi xuất bản cho người dùng.</p></div>
-    <select class="btn" style="padding:9px 14px" onchange="toast('Đã lọc: '+this.value,'ok')"><option>Chờ duyệt: 8</option><option>Đã duyệt</option><option>Từ chối</option></select>
+    <select class="btn" id="rvFilter" style="padding:9px 14px" onchange="window.filterModQueue(this.value)">
+        <option value="all">Tất cả</option>
+        <option value="pending">Chờ duyệt</option>
+        <option value="approved">Đã duyệt</option>
+        <option value="rejected">Từ chối</option>
+    </select>
   </div>
   <div class="grid g3" style="margin-bottom:20px">
     <div class="card">
@@ -27,21 +32,20 @@
       <p style="color:#567a88;font-size:13.5px;line-height:1.7" id="rvBody"></p>
       <div style="margin-top:16px">
         <div style="font-weight:600;margin-bottom:8px">Gợi ý thực hiện</div>
-        <ol style="padding-left:20px;line-height:1.8;font-size:13.5px"><li>Lập thực đơn vào tối Chủ nhật.</li><li>Mang theo đồ ăn từ nhà.</li><li>Theo dõi tổng chi sau 7 ngày.</li></ol>
+        <ol id="rvSteps" style="padding-left:20px;line-height:1.8;font-size:13.5px">
+        </ol>
       </div>
-    </div>
-    <div class="card">
+      <div class="card">
       <div class="section-title">Checklist kiểm duyệt</div>
       <ul style="display:flex;flex-direction:column;gap:12px;font-size:13.5px;margin-bottom:16px">
         <li style="display:flex;justify-content:space-between">Chính xác <span class="badge ok">✓</span></li>
         <li style="display:flex;justify-content:space-between">An toàn <span class="badge ok">✓</span></li>
         <li style="display:flex;justify-content:space-between">Dễ hiểu <span class="badge muted">○</span></li>
       </ul>
-      <div style="display:flex;flex-direction:column;gap:10px">
-        <button class="btn primary" onclick="toast('Đã duyệt tài nguyên','ok')">Duyệt</button>
-        <button class="btn" onclick="toast('Đã yêu cầu sửa','wr')">Yêu cầu sửa</button>
-        <button class="btn danger" onclick="toast('Đã từ chối tài nguyên','er')">Từ chối</button>
-      </div>
+      <div id="rvActionButtons" style="display:flex;flex-direction:column;gap:10px">
+        <button class="btn primary" onclick="window.handleModAction('approved')">Duyệt</button>
+        <button class="btn danger" onclick="window.handleModAction('rejected')">Từ chối</button>
+      </div>    
     </div>
   </div>
 </template>

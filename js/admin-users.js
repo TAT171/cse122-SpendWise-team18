@@ -86,10 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const infoEl = document.querySelector('[data-selected-info]');
     if (infoEl) infoEl.textContent = 'Đã chọn ' + count + ' người dùng';
 
-    // Cập nhật text trong card "Xác nhận vô hiệu hóa" — thay vì hardcode "2"
-    const disableCountEl = document.getElementById('disableCount');
-    if (disableCountEl) disableCountEl.textContent = count;
-
     // Disable nút "Vô hiệu hóa" khi chưa chọn ai
     document.querySelectorAll('.btn.danger').forEach(b => {
       if (/Vô hiệu hóa/.test(b.textContent)) b.disabled = count === 0;
@@ -118,18 +114,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   });
 
-  document.querySelectorAll('#disableModal button').forEach(b => {
-    if (b.textContent.trim() === 'Xác nhận') {
-      b.onclick = () => {
-        const ids = Array.from(tbody.querySelectorAll('.userChk:checked')).map(c => c.closest('tr').dataset.id);
-        ids.forEach(id => DB.update('users', id, { status: 'Vô hiệu hóa' }));
-        closeModal('disableModal');
-        render();
-        toast('Đã vô hiệu hóa ' + ids.length + ' tài khoản', 'er');
-      };
-    }
-  });
-
   /* ---------- Mời tài khoản ---------- */
   document.querySelectorAll('button').forEach(b => {
     if (b.textContent.trim() === 'Gửi lời mời') {
@@ -145,16 +129,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  window.handleDisable = function () {
-    const r = document.getElementById('disableReason');
-    if (r && !r.value.trim()) { toast('Vui lòng nhập lý do', 'er'); r.focus(); return; }
+    window.confirmDisable = function() {
+    const reason = document.getElementById('disableReason')?.value.trim();
+    if (!reason) {
+      toast('Vui lòng nhập lý do vô hiệu hóa', 'er');
+      document.getElementById('disableReason').focus();
+      return;
+    }
+    
     const ids = Array.from(tbody.querySelectorAll('.userChk:checked')).map(c => c.closest('tr').dataset.id);
-    if (!ids.length) { toast('Chưa chọn người dùng nào', 'er'); return; }
+    if (!ids.length) { 
+      toast('Chưa chọn người dùng nào', 'er'); 
+      closeModal('disableModal');
+      return; 
+    }
+    
     ids.forEach(id => DB.update('users', id, { status: 'Vô hiệu hóa' }));
+    closeModal('disableModal');
+    document.getElementById('disableReason').value = ''; // Reset ô nhập
     render();
     toast('Đã vô hiệu hóa ' + ids.length + ' tài khoản', 'er');
   };
-
   // ---- Skeleton loading lần đầu ----
   if (!tbody.dataset.initDone) {
     tbody.innerHTML = UI.skeletonRows(4, 6);
