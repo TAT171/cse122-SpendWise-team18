@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
       closeModal('disableModal');
       return; 
     }
-    
+    if (ids.includes('u-1')) {toast('Không thể vô hiệu hóa tài khoản đang đăng nhập', 'er'); return;}
     ids.forEach(id => DB.update('users', id, { status: 'Vô hiệu hóa' }));
     closeModal('disableModal');
     document.getElementById('disableReason').value = ''; // Reset ô nhập
