@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mục tiêu tiết kiệm – SpendWise</title>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/ai.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<div id="app-root" data-role="user" data-crumbs="Người dùng|Mục tiêu tiết kiệm"></div>
+
+<template id="page-content">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:22px">
+    <div><h1 class="page-title">Mục tiêu tiết kiệm</h1><p class="page-sub">Biến kế hoạch lớn thành những bước nhỏ mỗi tháng.</p></div>
+    <button class="btn primary" onclick="document.getElementById('newGoal').scrollIntoView({behavior:'smooth'});toast('Cuộn tới form tạo mục tiêu','wr')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+      Tạo mục tiêu
+    </button>
+  </div>
+  <nav class="tabs" id="goalTabs">
+    <div class="tab active" data-grp="active">Đang thực hiện 2</div>
+    <div class="tab" data-grp="done">Hoàn thành 1</div>
+    <div class="tab" data-grp="arc">Đã lưu trữ 1</div>
+  </nav>
+
+  <section class="grid g3" id="goalList" aria-label="Danh sách mục tiêu"></section>  
+  <section class="card" id="newGoal">
+    <header class="section-title">Thêm mục tiêu</header>
+    <form id="goalForm" style="display:grid;grid-template-columns:1.4fr 1fr;gap:14px">
+      <div class="field"><label>Tên mục tiêu</label><input type="text" id="gName" value="Mua nhà" data-required><span class="err"></span></div>
+      <div class="field"><label>Số tiền kỳ vọng</label><input type="text" id="gAmt" value="10000000" data-required><span class="err"></span></div>
+      <div class="field"><label>Thời hạn</label><input type="date" id="gDeadline" value="2027-06-30"></div>
+      <div class="field"><label>Loại</label><input type="text" id="gType" value="Chi tiêu"></div>
+      <div style="grid-column:1/-1;display:flex;gap:10px">
+        <button class="btn primary" type="submit">Lưu mục tiêu</button>
+        <button class="btn" type="button" onclick="toast('Đã hủy','wr')">Hủy</button>
+      </div>
+    </form>
+    <div class="ai-panel">
+      <div class="ai-head">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.8 5.2L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.8z"/></svg>
+        Goal Coach
+      </div>
+      <div id="aiGoalBody"><button class="btn" type="button" id="runGoal">Gợi ý lộ trình từ AI</button></div>
+    </div>
+  </section>
+</template>
+
+<script src="js/data.js"></script>
+<script src="js/core.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/user-goals.js"></script>
+</body>
+</html>
