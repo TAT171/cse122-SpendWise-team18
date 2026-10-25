@@ -181,8 +181,8 @@ const AI = {
       };
     }
 
-    const months = Math.max(1,
-      Math.round((new Date(deadline) - new Date()) / (1000 * 60 * 60 * 24 * 30)));
+    const daysLeft = (new Date(deadline) - new Date()) / (1000 * 60 * 60 * 24);
+    const months = Math.max(1, Math.round(daysLeft / 30.44));
 
     if (months <= 0) {
       return {
@@ -219,6 +219,27 @@ const AI = {
       reason
     };
   }
+};
+
+AI.renderFailure = function({ message, onEdit, onRetry, onReport }) {
+  return `<div class="ai-result" style="border-color:#fdeaea;background:#fef7f7">
+    <div style="color:#e05252;font-weight:600;margin-bottom:8px">⚠ Không thể xử lý</div>
+    <div style="font-size:13.5px;margin-bottom:12px">${this._esc ? this._esc(message) : message}</div>
+    <div class="ai-actions">
+      <button class="btn primary" onclick="${onRetry}">Thử lại</button>
+      <button class="btn" onclick="${onEdit}">Sửa dữ liệu</button>
+      <button class="btn" onclick="${onReport}">Báo cáo</button>
+    </div>
+  </div>`;
+};
+
+AI.reportFailure = function(title, reason) {
+  DB.insert('feedback', {
+    id: 'FB-' + Math.floor(1000 + Math.random()*9000),
+    status: 'open', level: 'Trung bình',
+    title: title, desc: reason, assignee: 'Chưa phân công', timeline: []
+  });
+  toast('Đã gửi báo cáo cho kiểm duyệt viên', 'wr');
 };
 
 window.AI = AI;

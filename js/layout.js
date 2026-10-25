@@ -1,3 +1,26 @@
+
+const MENUS = {
+  user:[
+    {l:'Tổng quan',            h:'user-finance-dashboard.html',    i:'grid'},
+    {l:'Giao dịch',            h:'user-transaction-management.html', i:'rows'},
+    {l:'Mục tiêu tiết kiệm',   h:'user-saving-goals.html',          i:'target'}
+  ],
+  coach:[
+    {l:'Khách hàng',       h:'coach-client-list.html',        i:'user'},
+    {l:'Duyệt ngân sách',  h:'coach-budget-review.html',      i:'chart'},
+    {l:'Tài nguyên',       h:'coach-resource-management.html',i:'doc'}
+  ],
+  moderator:[
+    {l:'Duyệt tài nguyên',    h:'moderator-resource-review.html',          i:'check'},
+    {l:'Mẫu AI',              h:'moderator-ai-template-management.html',  i:'spark'},
+    {l:'Trung tâm phản hồi',  h:'moderator-feedback-center.html',          i:'flag'}
+  ],
+  admin:[
+    {l:'Danh mục chi tiêu', h:'admin-expense-category-management.html', i:'tag'},
+    {l:'Người dùng',        h:'admin-user-management.html',             i:'user'},
+    {l:'Hệ thống',          h:'admin-system-dashboard.html',            i:'gear'}
+  ]
+}
 /* =========================================================
    SpendWise – Layout auto-inject (sidebar + topbar)
    Sử dụng: <div id="app-root" data-role="user" data-crumbs="..."></div>
@@ -100,3 +123,5 @@ function buildTopbar(crumbs){
   root.replaceWith(app);
   if(tmpl) tmpl.remove();
 })();
+})();
+

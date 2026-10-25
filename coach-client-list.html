@@ -1,44 +1,92 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Khách hàng – SpendWise</title>
-<link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/layout.css">
-<link rel="stylesheet" href="css/components.css">
-<link rel="stylesheet" href="css/responsive.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Khách hàng - SpendWise</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
 </head>
+
 <body>
-<div id="app-root" data-role="coach" data-crumbs="Huấn luyện viên|Khách hàng"></div>
+  <div id="app-root" data-role="coach" data-crumbs="Huấn luyện viên|Khách hàng"></div>
 
-<template id="page-content">
-  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:22px">
-    <div><h1 class="page-title">Danh sách khách hàng</h1><p class="page-sub">Theo dõi sức khỏe tài chính và tiến độ hỗ trợ.</p></div>
-    <button class="btn" onclick="toast('Đang xuất danh sách…','ok')">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
-      Xuất danh sách
-    </button>
-  </div>
-  <div class="grid g3" style="margin-bottom:18px">
-    <div class="stat"><div class="label">Đang phụ trách <span class="badge-icon">👤</span></div><div class="value">24</div><div class="delta">+2 tháng này</div></div>
-    <div class="stat"><div class="label">Cần chú ý <span class="badge-icon" style="background:#fdeaea;color:#e05252">△</span></div><div class="value">5</div><div class="delta down">2 rủi ro cao</div></div>
-    <div class="stat"><div class="label">Đúng mục tiêu <span class="badge-icon" style="background:#e4f6eb;color:#2e9e5b">○</span></div><div class="value">79%</div><div class="delta up">+4% so tháng trước</div></div>
-  </div>
-  <div class="toolbar">
-    <div class="search"><input type="text" placeholder="Tìm tên hoặc email..."></div>
-    <select onchange="toast('Lọc rủi ro: '+this.value,'ok')"><option>Mức rủi ro</option><option>Thấp</option><option>Trung bình</option><option>Cao</option></select>
-    <select onchange="toast('Lọc trạng thái: '+this.value,'ok')"><option>Trạng thái</option></select>
-  </div>
-  <div class="table-wrap">
-    <table><thead><tr><th>Khách hàng</th><th>Ngân sách</th><th>Mục tiêu</th><th>Rủi ro</th><th>Cập nhật</th><th>Thao tác</th></tr></thead>
-      <tbody id="clBody"></tbody>
-    </table>
-  </div>
-</template>
+  <template id="page-content">
+    
+    <header style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:22px">
+      
+      <hgroup>
+        <h1 class="page-title">Danh sách khách hàng </h1>
+        <p class="page-sub">Theo dõi sức khỏe tài chính và tiến độ hỗ trợ.</p>
+      </hgroup>
+      <button class="btn" onclick="toast('Đang xuất danh sách…','ok')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 3v12M7 10l5 5 5-5M5 21h14" />
+        </svg>
+        Xuất danh sách
+      </button>
+    </header>
+    
+  
+    <section class="grid g3" style="margin-bottom:18px">
+      <!-- Đổi từ div sang article -->
+      <article class="stat">
+        <div class="label">Đang phụ trách <span class="badge-icon">👤</span></div>
+        <div class="value">24</div>
+        <div class="delta">+2 tháng này</div>
+      </article>
+      
+      <article class="stat">
+        <div class="label">Cần chú ý <span class="badge-icon" style="background:#fdeaea;color:#e05252">△</span></div>
+        <div class="value">5</div>
+        <div class="delta down">2 rủi ro cao</div>
+      </article>
+      
+      <article class="stat">
+        <div class="label">Đúng mục tiêu <span class="badge-icon" style="background:#e4f6eb;color:#2e9e5b">○</span></div>
+        <div class="value">79%</div>
+        <div class="delta up">+4% so tháng trước</div>
+      </article>
+    </section>
+    
+    
+    <nav class="toolbar">
+      <div class="search"><input type="text" placeholder="Tìm tên hoặc email..."></div>
+      <select onchange="toast('Lọc rủi ro: '+this.value,'ok')">
+        <option>Mức rủi ro</option>
+        <option>Thấp</option>
+        <option>Trung bình</option>
+        <option>Cao</option>
+      </select>
+      <select onchange="toast('Lọc trạng thái: '+this.value,'ok')">
+        <option>Trạng thái</option>
+      </select>
+    </nav>
+    
+    
+    <section class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Khách hàng</th>
+            <th>Ngân sách</th>
+            <th>Mục tiêu</th>
+            <th>Rủi ro</th>
+            <th>Cập nhật</th>
+            <th>Thao tác</th>
+          </tr>
+        </thead>
+        <tbody id="clBody"></tbody>
+      </table>
+    </section>
+  </template>
 
-<script src="js/core.js"></script>
-<script src="js/layout.js"></script>
-<script src="js/coach-clients.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/coach-clients.js"></script>
 </body>
+
 </html>
