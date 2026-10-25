@@ -38,8 +38,7 @@ wrap.innerHTML = `
         ${r.data.anomalies.map(a => `<div class="badge er" style="display:block;text-align:left;padding:8px 12px;margin-bottom:6px">${a.label} · ${money(a.amount)}</div>`).join('')}
       </div>` : ''}
     <div class="ai-actions">
-      <button class="btn dark" onclick="toast('Đã chấp nhận gợi ý AI','ok')">Chấp nhận</button>
-      <button class="btn" onclick="toast('Đã mở chỉnh sửa gợi ý','wr')">Sửa</button>
+      <button class="btn dark" onclick="saveInsightNote()">Chấp nhận & Lưu</button>      <button class="btn" onclick="toast('Đã mở chỉnh sửa gợi ý','wr')">Sửa</button>
       <button class="btn" onclick="toast('Đã từ chối gợi ý','wr')">Từ chối</button>
       <button class="btn" onclick="saveInsightNote()">Lưu ghi chú</button>
       <button class="btn" onclick="toast('Đã chuyển cho Huấn luyện viên','ok')">Chuyển cho Coach</button>
@@ -60,9 +59,56 @@ function saveInsightNote() {
   toast('Đã lưu insight vào ghi chú', 'ok');
 }
 
+function renderDashboard() {
+  const txs = DB.all('transactions');
+  
+  let totalIncome = 0;
+  let totalSpent = 0;
+  
+  txs.forEach(t => {
+    if (t.amt > 0) totalIncome += t.amt;
+    else totalSpent += Math.abs(t.amt);
+  });
+  
+  const balance = totalIncome - totalSpent;
+  const saved = totalIncome - totalSpent;
+  const budget = 20000000; 
+  const spentPct = Math.round((totalSpent / budget) * 100) || 0;
+
+  const elBalance = document.getElementById('kpiBalance');
+  if (elBalance) elBalance.textContent = money(balance);
+  
+  const elSpent = document.getElementById('kpiTotalSpent');
+  if (elSpent) elSpent.textContent = money(totalSpent);
+  
+  const elSaved = document.getElementById('kpiSaved');
+  if (elSaved) elSaved.textContent = money(saved);
+
+  const spentDelta = elSpent?.nextElementSibling;
+  if (spentDelta) spentDelta.textContent = `Đã dùng ${spentPct}% ngân sách`;
+
+  const chartWrap = document.getElementById('chart7Days');
+  if (chartWrap) {
+    const days = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
+    const maxSpent = Math.max(...txs.filter(t => t.amt < 0).map(t => Math.abs(t.amt)), 1000000);
+    const recentTxs = txs.filter(t => t.amt < 0).slice(0, 7).reverse();
+    
+    chartWrap.innerHTML = days.map((day, i) => {
+      const tx = recentTxs[i];
+      const amt = tx ? Math.abs(tx.amt) : 0;
+      const height = Math.max((amt / maxSpent) * 120, 10); 
+      
+      return `<div style="flex:1;text-align:center">
+        <article style="height:${height}px;background:#bfeaf4;border-radius:6px 6px 0 0;margin-bottom:6px" title="${money(amt)}"></article>
+        <span style="font-size:12px">${day}</span>
+      </div>`;
+    }).join('');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderDashboard();
+});
 window.runInsight = runInsight;
 window.saveInsightNote = saveInsightNote;
-document.getElementById('runInsight')?.addEventListener('click', runInsight);
-
-window.runInsight = runInsight;
 document.getElementById('runInsight')?.addEventListener('click', runInsight);
