@@ -31,16 +31,8 @@
       <tbody id="userBody"></tbody>
     </table>
   </div>
-  <div class="grid g2">
-    <div class="card">
-      <div class="section-title">Xác nhận vô hiệu hóa</div>
-      <p style="color:#567a88;margin-bottom:14px"><span id="disableCount">0</span> tài khoản đã chọn sẽ không thể đăng nhập cho đến khi được kích hoạt lại.</p>
-      <div class="field" style="margin-bottom:12px"><label>Lý do</label><input type="text" id="disableReason" placeholder="Nhập lý do..."></div>
-      <div style="display:flex;gap:10px">
-        <button class="btn danger" onclick="handleDisable()">Xác nhận</button>
-        <button class="btn" onclick="toast('Đã hủy thao tác','wr')">Hủy</button>
-      </div>
-    </div>
+  <!-- KHUNG MỜI TÀI KHOẢN (Bọc thêm grid) -->
+  <div class="grid">
     <div class="card">
       <div class="section-title">Mời tài khoản</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
@@ -50,14 +42,26 @@
       <button class="btn primary" onclick="toast('Đã gửi lời mời tới newuser@email.com','ok')">Gửi lời mời</button>
     </div>
   </div>
+
+  <!-- MODAL XÁC NHẬN VÔ HIỆU HÓA -->
   <div class="modal-backdrop" id="disableModal">
     <div class="modal">
-      <div class="modal-head"><h3>Xác nhận vô hiệu hóa tài khoản</h3>
-        <button class="icon-btn" onclick="closeModal('disableModal')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <div class="modal-head">
+        <h3>Xác nhận vô hiệu hóa tài khoản</h3>
+        <button class="icon-btn" onclick="closeModal('disableModal')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
       </div>
       <p style="color:#567a88;margin-bottom:14px">Hành động này sẽ khóa tài khoản được chọn cho đến khi Admin kích hoạt lại.</p>
+      
+      <!-- ĐÃ THÊM LẠI Ô NHẬP LÝ DO Ở ĐÂY -->
+      <div class="field" style="margin-bottom:14px">
+        <label for="disableReason">Lý do vô hiệu hóa</label>
+        <input type="text" id="disableReason" placeholder="Nhập lý do...">
+      </div>
+
       <div style="display:flex;gap:10px">
-        <button class="btn danger" onclick="closeModal('disableModal');toast('Đã vô hiệu hóa tài khoản','er')">Xác nhận</button>
+        <button class="btn danger" onclick="confirmDisable()">Xác nhận</button>
         <button class="btn" onclick="closeModal('disableModal')">Hủy</button>
       </div>
     </div>
