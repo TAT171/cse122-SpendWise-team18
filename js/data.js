@@ -9,20 +9,19 @@
    LƯU Ý: file này được load TRƯỚC core.js trong tất cả HTML.
    ========================================================= */
 window.SEED_DATA = {
-  /* ---------- Giao dịch ---------- */
+/* ---------- Giao dịch ---------- */
   transactions: [
     {id:'tx-1',  desc:'Highlands Coffee',   cat:'Ăn uống',   type:'out', date:'2026-10-01', amt:-85000},
-    {id:'tx-2',  desc:'Lương tháng 9',      cat:'Thu nhập',  type:'in',  date:'2026-09-30', amt:24000000},
-    {id:'tx-3',  desc:'Grab',               cat:'Di chuyển', type:'out', date:'2026-09-29', amt:-72000},
-    {id:'tx-4',  desc:'Nhà sách Fahasa',    cat:'Mua sắm',   type:'out', date:'2026-09-27', amt:-325000},
-    {id:'tx-5',  desc:'Điện tử',            cat:'Mua sắm',   type:'out', date:'2026-09-25', amt:-1280000},
-    {id:'tx-6',  desc:'Ăn tối nhà hàng',    cat:'Ăn uống',   type:'out', date:'2026-09-20', amt:-890000},
-    {id:'tx-7',  desc:'Netflix',            cat:'Giải trí',  type:'out', date:'2026-09-18', amt:-260000},
-    {id:'tx-8',  desc:'Tiền điện tháng 9',  cat:'Hoá đơn',   type:'out', date:'2026-09-15', amt:-450000},
-    {id:'tx-9',  desc:'Phúc Long',          cat:'Ăn uống',   type:'out', date:'2026-09-12', amt:-96000},
-    {id:'tx-10', desc:'Xăng xe',            cat:'Di chuyển', type:'out', date:'2026-09-10', amt:-150000}
+    {id:'tx-2',  desc:'Lương tháng 9',      cat:'Thu nhập',  type:'in',  date:'2026-10-30', amt:24000000},
+    {id:'tx-3',  desc:'Grab',               cat:'Di chuyển', type:'out', date:'2026-10-29', amt:-72000},
+    {id:'tx-4',  desc:'Nhà sách Fahasa',    cat:'Mua sắm',   type:'out', date:'2026-10-27', amt:-325000},
+    {id:'tx-5',  desc:'Điện tử',            cat:'Mua sắm',   type:'out', date:'2026-10-25', amt:-1280000},
+    {id:'tx-6',  desc:'Ăn tối nhà hàng',    cat:'Ăn uống',   type:'out', date:'2026-10-20', amt:-890000},
+    {id:'tx-7',  desc:'Netflix',            cat:'Giải trí',  type:'out', date:'2026-10-18', amt:-260000},
+    {id:'tx-8',  desc:'Tiền điện tháng 9',  cat:'Hoá đơn',   type:'out', date:'2026-10-15', amt:-450000},
+    {id:'tx-9',  desc:'Phúc Long',          cat:'Ăn uống',   type:'out', date:'2026-10-12', amt:-96000},
+    {id:'tx-10', desc:'Xăng xe',            cat:'Di chuyển', type:'out', date:'2026-10-10', amt:-150000}
   ],
-
   /* ---------- Danh mục ---------- */
   categories: [
     {id:'cat-1', name:'Ăn uống',   icon:'🍜', color:'#f39c12', keywords:'cafe, quán ăn, nhà hàng',  uses:1240, status:'active'},
@@ -50,12 +49,31 @@ window.SEED_DATA = {
     {id:'u-4', name:'Quốc Bảo',        role:'Người dùng',       status:'Vô hiệu hóa', last:'21/09'}
   ],
 
-  /* ---------- Tài nguyên ---------- */
+/* ---------- Tài nguyên ---------- */
   resources: [
-    {id:'rs-1', title:'5 bước lập quỹ khẩn cấp',            cat:'Tiết kiệm', status:'approved', author:'HLV Thu Trang', updated:'2026-09-30'},
-    {id:'rs-2', title:'Ăn uống tiết kiệm cho người bận rộn', cat:'Ngân sách', status:'pending',  author:'HLV Thu Trang', updated:'2026-09-29'},
-    {id:'rs-3', title:'Hiểu về chi tiêu cảm xúc',           cat:'Thói quen', status:'draft',    author:'HLV Thu Trang', updated:'2026-09-28'},
-    {id:'rs-4', title:'Checklist cuối tháng',                cat:'Kế hoạch',  status:'rejected', author:'HLV Thu Trang', updated:'2026-09-26'}
+    {id:'rs-1', title:'5 bước lập quỹ khẩn cấp', cat:'Tiết kiệm', status:'approved', author:'HLV Thu Trang', updated:'2026-09-30', 
+     desc:'Hướng dẫn chi tiết cách lập quỹ khẩn cấp cho người mới bắt đầu...', 
+     steps: ['Xác định chi phí sinh hoạt 3 tháng', 'Mở tài khoản tiết kiệm riêng', 'Trích 10% thu nhập tự động']},
+     
+    {id:'rs-2', title:'Ăn uống tiết kiệm cho người bận rộn', cat:'Ngân sách', status:'pending', author:'HLV Thu Trang', updated:'2026-09-29', 
+     desc:'Lập kế hoạch bữa ăn hàng tuần, tận dụng thực phẩm thừa...', 
+     steps: ['Lập thực đơn vào tối Chủ nhật', 'Mang theo đồ ăn từ nhà', 'Theo dõi tổng chi sau 7 ngày']},
+     
+    {id:'rs-3', title:'Hiểu về chi tiêu cảm xúc', cat:'Thói quen', status:'draft', author:'HLV Thu Trang', updated:'2026-09-28', 
+     desc:'Phân tích tâm lý mua sắm bốc đồng...', 
+     steps: ['Nhận diện cảm xúc trước khi mua', 'Chờ 24h trước khi chốt đơn', 'Ghi chép lại lý do mua']},
+     
+    {id:'rs-4', title:'Checklist cuối tháng', cat:'Kế hoạch', status:'rejected', author:'HLV Thu Trang', updated:'2026-09-26', 
+     desc:'Danh sách các việc cần làm để rà soát ngân sách vào cuối tháng...', 
+     steps: ['Đối chiếu sao kê ngân hàng', 'Kiểm tra các khoản đăng ký định kỳ', 'Lên ngân sách tháng tới']},
+     
+    {id:'rs-5', title:'Quản lý nợ tín dụng cho người mới', cat:'Ngân sách', status:'pending', author:'HLV Minh Hùng', updated:'2026-10-02', 
+     desc:'Các bước cơ bản để kiểm soát nợ thẻ tín dụng...', 
+     steps: ['Liệt kê toàn bộ các khoản nợ', 'Ưu tiên trả nợ lãi suất cao trước', 'Gọi điện xin giảm lãi suất']},
+     
+    {id:'rs-6', title:'Bí quyết tiết kiệm 20% thu nhập', cat:'Tiết kiệm', status:'pending', author:'HLV Thu Trang', updated:'2026-10-04', 
+     desc:'Phương pháp chia thu nhập theo tỷ lệ 50/30/20...', 
+     steps: ['Trích 20% ngay khi nhận lương', 'Cắt giảm chi tiêu không thiết yếu', 'Đầu tư số tiền nhàn rỗi']}
   ],
 
   /* ---------- Phản hồi ---------- */

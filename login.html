@@ -14,15 +14,17 @@
   <header class="auth-header">
   <a class="logo" href="login.html"><span class="logo-mark">▢</span> SpendWise</a>
 </header>
-  <div class="auth-body">
-    <div class="auth-panel left">
+  <main class="auth-body">
+    <section class="auth-panel left" aria-label="Giới thiệu SpendWise">
       <h1>Mỗi đồng đều có mục đích.</h1>
       <p>Theo dõi chi tiêu, giữ đúng ngân sách và nhận gợi ý rõ ràng cho mọi quyết định.</p>
       <div class="auth-illust"></div>
-    </div>
-    <div class="auth-panel right">
-      <h2>Chào mừng trở lại</h2>
-      <p class="sub">Đăng nhập để tiếp tục quản lý tài chính.</p>
+    </section>
+    <section class="auth-panel right" aria-label="Form đăng nhập">
+      <header>
+        <h2>Chào mừng trở lại</h2>
+        <p class="sub">Đăng nhập để tiếp tục quản lý tài chính.</p>
+      </header>
       <form class="auth-form" id="loginForm" novalidate>
         <div class="field full"><label>Email</label><input type="email" value="minhanh@email.com" data-required><span class="err"></span></div>
         <div class="field full"><label>Mật khẩu</label><input type="password" value="12345678" data-required><span class="err"></span></div>
@@ -37,9 +39,8 @@
         <button type="button" class="demo-role-btn" onclick="demoLogin('moderator')"><span class="ico">✅</span><span>Kiểm duyệt viên<small>Duyệt nội dung & mẫu AI</small></span></button>
         <button type="button" class="demo-role-btn" onclick="demoLogin('admin')"><span class="ico">⚙️</span><span>Quản trị viên<small>Quản lý hệ thống & người dùng</small></span></button>
       </div>
-    </div>
-  </div>
-</div>
+    </section>
+  </main>
 
 <script src="js/data.js"></script>
 <script src="js/core.js"></script>
