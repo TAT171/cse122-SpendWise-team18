@@ -94,6 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const inputs = form.querySelectorAll('input');
       const name = inputs[0].value.trim();
       if (!name) { toast('Vui lòng nhập tên danh mục', 'er'); return; }
+      if (name.length < 2) {toast('Tên danh mục phải có ít nhất 2 kí tự','er'); return;}
       DB.insert('categories', {
         name, color: inputs[1].value, keywords: inputs[2].value.trim(),
         icon: '📁', uses: 0, status: 'active'
