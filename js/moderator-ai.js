@@ -1,6 +1,5 @@
 
 document.addEventListener('DOMContentLoaded', () => {
-  /* ---------- TEST CONSOLE (giữ nguyên) ---------- */
   const out     = document.getElementById('testOutput');
   const status  = document.getElementById('testStatus');
 
@@ -84,7 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Enter') runTest();
   });
 
-  /* ---------- TEMPLATE TABLE (DB-backed) ---------- */
   const tbody = document.querySelector('.table-wrap table tbody');
   if (!tbody) return;
 
@@ -142,7 +140,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  /* ---------- FORM submit ---------- */
   const form = document.getElementById('tplForm');
   form?.addEventListener('submit', e => {
     e.preventDefault();
@@ -168,7 +165,6 @@ DB.update('aiTemplates', currentId, {
     toast('Đã lưu phiên bản mẫu', 'ok');
   });
 
-  /* ---------- Nút "Tạm tắt" / "Khôi phục" ---------- */
   form?.querySelectorAll('button[type="button"]').forEach(b => {
     const text = b.textContent.trim();
     if (text === 'Tạm tắt') {

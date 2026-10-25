@@ -1,13 +1,3 @@
-/* =========================================================
-   SpendWise – Mock Data (centralized)
-   Nguồn dữ liệu giả lập DUY NHẤT của dự án.
-   Gom từ: core.js (transactions, categories, goals, users,
-   resources, feedback), coach-budget.js (budgets, coachNotes),
-   coach-clients.js (coachClients), moderator-ai.js (aiTemplates),
-   user-dashboard.js (mockTx → chuyển vào transactions).
-
-   LƯU Ý: file này được load TRƯỚC core.js trong tất cả HTML.
-   ========================================================= */
 window.SEED_DATA = {
 /* ---------- Giao dịch ---------- */
   transactions: [
@@ -104,9 +94,23 @@ window.SEED_DATA = {
      lines:[
        {cat:'Ăn uống',   plan:3000000, actual:2800000},
        {cat:'Di chuyển', plan:1500000, actual:1800000}
+     ]},
+
+    {id:'b-3', client:'Lê Thu Hà', month:'2026-10', total:28000000, spent:21000000,
+     lines:[
+       {cat:'Ăn uống',   plan:5000000, actual:6100000},
+       {cat:'Di chuyển', plan:2500000, actual:2800000},
+       {cat:'Mua sắm',   plan:3500000, actual:4200000},
+       {cat:'Hoá đơn',   plan:3000000, actual:2900000}
+     ]},
+    {id:'b-4', client:'Phạm Gia Huy', month:'2026-10', total:18000000, spent:11000000,
+     lines:[
+       {cat:'Ăn uống',   plan:3500000, actual:3200000},
+       {cat:'Di chuyển', plan:1800000, actual:1600000},
+       {cat:'Mua sắm',   plan:2800000, actual:2400000},
+       {cat:'Hoá đơn',   plan:2200000, actual:2100000}
      ]}
   ],
-
   /* ---------- Khách hàng Coach ---------- */
   coachClients: [
     {id:'c-1', n:'Nguyễn Minh Anh', b:20000000, g:60, r:'Thấp',       u:'1 giờ trước'},

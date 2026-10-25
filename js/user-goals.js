@@ -1,6 +1,3 @@
-/* =========================================================
-   User Saving Goals – CRUD + AI Goal Coach (DB)
-   ========================================================= */
 function renderGoals() {
   const status = document.querySelector('#goalTabs .tab.active')?.dataset.grp || 'active';
   const list = DB.all('goals').filter(g => g.grp === status);
@@ -58,7 +55,6 @@ async function runGoal() {
   const amount   = parseInt(document.getElementById('gAmt').value.replace(/[^\d]/g, ''), 10) || 0;
   const deadline = document.getElementById('gDeadline').value || '';
 
-  // Chặn AI chạy nếu thiếu tên
   if (!name) {
     toast('Vui lòng nhập tên mục tiêu trước khi dùng AI', 'er');
     nameInput.classList.add('error');
@@ -85,7 +81,6 @@ async function runGoal() {
   window.__lastGoalPlan = Object.assign({ name, amount, deadline }, r);
   const pct = Math.round(r.data.confidence * 100);
 
-  // Hiển thị kết quả dưới dạng textarea cho phép sửa
   wrap.innerHTML = `
     <div class="ai-result">
       <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px">

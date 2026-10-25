@@ -1,31 +1,3 @@
-
-const MENUS = {
-  user:[
-    {l:'Tổng quan',            h:'user-finance-dashboard.html',    i:'grid'},
-    {l:'Giao dịch',            h:'user-transaction-management.html', i:'rows'},
-    {l:'Mục tiêu tiết kiệm',   h:'user-saving-goals.html',          i:'target'}
-  ],
-  coach:[
-    {l:'Khách hàng',       h:'coach-client-list.html',        i:'user'},
-    {l:'Duyệt ngân sách',  h:'coach-budget-review.html',      i:'chart'},
-    {l:'Tài nguyên',       h:'coach-resource-management.html',i:'doc'}
-  ],
-  moderator:[
-    {l:'Duyệt tài nguyên',    h:'moderator-resource-review.html',          i:'check'},
-    {l:'Mẫu AI',              h:'moderator-ai-template-management.html',  i:'spark'},
-    {l:'Trung tâm phản hồi',  h:'moderator-feedback-center.html',          i:'flag'}
-  ],
-  admin:[
-    {l:'Danh mục chi tiêu', h:'admin-expense-category-management.html', i:'tag'},
-    {l:'Người dùng',        h:'admin-user-management.html',             i:'user'},
-    {l:'Hệ thống',          h:'admin-system-dashboard.html',            i:'gear'}
-  ]
-}
-/* =========================================================
-   SpendWise – Layout auto-inject (sidebar + topbar)
-   Sử dụng: <div id="app-root" data-role="user" data-crumbs="..."></div>
-   ========================================================= */
-
 const MENUS = {
   user:[
     {l:'Tổng quan',            h:'user-finance-dashboard.html',    i:'grid'},
@@ -85,7 +57,7 @@ function buildSidebar(role, current){
 }
 
 function buildTopbar(crumbs){
-  return `<div class="topbar">
+  return `<header class="topbar">
     <div class="crumb">${(crumbs||[]).map((c,i,a)=>i===a.length-1?`<b>${c}</b>`:c).join(' / ')}</div>
     <div class="actions">
       <button class="icon-btn" title="Tìm kiếm" onclick="toast('Mở tìm kiếm toàn cục','wr')">
@@ -97,10 +69,9 @@ function buildTopbar(crumbs){
 
       <div class="avatar" title="Nguyễn Minh Anh">MA</div>
     </div>
-  </div>`;
+  </header>`;
 }
 
-/* ---------- Auto-mount ---------- */
 (function autoMount(){
   const root = document.getElementById('app-root');
   if(!root) return;
@@ -117,11 +88,10 @@ function buildTopbar(crumbs){
     ${buildSidebar(role, current)}
     <div class="main">
       ${buildTopbar(crumbs)}
-      <div class="content">${inner}</div>
+      <main class="content">${inner}</div>
     </div>`;
 
   root.replaceWith(app);
   if(tmpl) tmpl.remove();
-})();
 })();
 

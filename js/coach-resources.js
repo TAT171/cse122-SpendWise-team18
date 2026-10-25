@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     rejected: { label:'Từ chối',   cls:'er'    }
   };
 
-  /* ---------- Inject edit modal ---------- */
   if (!document.getElementById('resEditModal')) {
     const m = document.createElement('div');
     m.className = 'modal-backdrop';

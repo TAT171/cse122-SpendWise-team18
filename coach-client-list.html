@@ -55,7 +55,7 @@
     
     <nav class="toolbar">
       <div class="search"><input type="text" placeholder="Tìm tên hoặc email..."></div>
-      <select onchange="toast('Lọc rủi ro: '+this.value,'ok')">
+      <select id="clRiskFilter">
         <option>Mức rủi ro</option>
         <option>Thấp</option>
         <option>Trung bình</option>
@@ -84,6 +84,7 @@
     </section>
   </template>
 
+  <script src="js/data.js"></script>
   <script src="js/core.js"></script>
   <script src="js/layout.js"></script>
   <script src="js/coach-clients.js"></script>

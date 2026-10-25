@@ -10,7 +10,6 @@ function demoLogin(role){
 }
 
 document.addEventListener('DOMContentLoaded', ()=>{
-  /* --- Login --- */
   const loginForm = document.getElementById('loginForm');
   loginForm?.addEventListener('submit', e=>{
     e.preventDefault();

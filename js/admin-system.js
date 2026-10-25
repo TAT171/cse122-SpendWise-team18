@@ -1,11 +1,6 @@
-/* =========================================================
-   Admin – System Dashboard (giữ nguyên + thêm notify modal)
-   ========================================================= */
 (function () {
   'use strict';
 
-  // Escape 1 ô CSV: nếu chứa ", ; hoặc xuống dòng → bọc trong "" và nhân đôi " bên trong
-// Ví dụ: 'Lương "tháng 9"' → '"Lương ""tháng 9"""'
 function csvCell(v) {
   const s = String(v == null ? '' : v);
   return /[";\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
@@ -22,8 +17,6 @@ function csvCell(v) {
         (s.querySelector('.delta')?.textContent || '').trim()
       ].map(csvCell).join(';'));
     });
-    // \uFEFF = BOM (Byte Order Mark): báo hiệu file UTF-8 cho Excel
-    // Nếu thiếu, Excel mở file sẽ hiển thị tiếng Việt thành ký tự lạ (Ã, Ä...)
     const csv = '\uFEFF' + rows.join('\r\n');
     const blob = new Blob([csv], { type:'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
@@ -35,7 +28,6 @@ function csvCell(v) {
   }
 
   function init() {
-    // 1. Wire export CSV
     const exportBtn = Array.from(document.querySelectorAll('button'))
       .find(b => /Xuất báo cáo/i.test(b.textContent));
     if (exportBtn) {
@@ -43,7 +35,6 @@ function csvCell(v) {
       exportBtn.addEventListener('click', exportCSV);
     }
 
-    // 2. Inject notify modal
     if (!document.getElementById('notifyModal')) {
       const m = document.createElement('div');
       m.className = 'modal-backdrop';
@@ -85,7 +76,6 @@ function csvCell(v) {
       });
     }
 
-        // 2b. Populate dynamic stats + pending table
     populateDashboard();
 
     function populateDashboard() {
@@ -94,7 +84,6 @@ function csvCell(v) {
       const pending        = DB.find('resources', { status: 'pending' });
       const fmt            = n => new Intl.NumberFormat('vi-VN').format(n);
 
-      // --- Stats ---
       const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
       set('adminStatUsers',   fmt(users.length));
       set('adminStatActive',  fmt(activeUsers.length));
@@ -104,10 +93,8 @@ function csvCell(v) {
       set('adminStatPendingNote',
         pending.length ? pending.length + ' cần xử lý' : 'Không có');
 
-      // --- Pending badge ---
       set('adminPendingBadge', pending.length + ' mục');
 
-      // --- Pending table ---
       const tbody = document.getElementById('adminPendingBody');
       if (tbody) {
         if (!pending.length) {
@@ -127,7 +114,6 @@ function csvCell(v) {
         }
       }
     }
-    // 3. Wire nút "Tạo thông báo" → mở modal
     const notifyBtn = Array.from(document.querySelectorAll('button'))
       .find(b => /Tạo thông báo/i.test(b.textContent));
     if (notifyBtn) {

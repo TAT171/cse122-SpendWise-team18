@@ -1,6 +1,3 @@
-/* =========================================================
-   User Transactions – CRUD + LocalStorage + Phân trang thật
-   ========================================================= */
 let currentPage = 1;
 const PAGE_SIZE = 5;
 

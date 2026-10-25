@@ -1,12 +1,8 @@
-/* =========================================================
-   Admin – Expense Category Management (full CRUD)
-   ========================================================= */
 document.addEventListener('DOMContentLoaded', () => {
   const tbody = document.getElementById('catBody');
   const form  = document.getElementById('catForm');
   if (!tbody) return;
 
-  /* ---------- Inject edit modal (ẩn mặc định) ---------- */
   if (!document.getElementById('catEditModal')) {
     const m = document.createElement('div');
     m.className = 'modal-backdrop';
@@ -47,7 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ---------- Render ---------- */
   function render() {
     const cats = DB.all('categories');
     tbody.innerHTML = cats.length ? cats.map(c => `
@@ -110,7 +105,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ---- Skeleton loading lần đầu ----
   if (!tbody.dataset.initDone) {
     tbody.innerHTML = UI.skeletonRows(5, 7);
     setTimeout(() => {

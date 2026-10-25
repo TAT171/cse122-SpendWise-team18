@@ -6,15 +6,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderList() {
     const items = DB.all('feedback');
 
-    // ---- Empty state ----
     if (!items.length) {
-      // Cột trái — danh sách trống
       list.innerHTML = UI.emptyState(
         'Chưa có phản hồi nào',
         'Khi người dùng gửi báo cáo lỗi AI hoặc góp ý, phản hồi sẽ hiển thị ở đây để bạn xử lý.'
       );
 
-      // Cột phải — panel chi tiết cũng trống
       const detail = document.getElementById('fbDetailPanel');
       if (detail) {
         detail.innerHTML = UI.emptyState(
@@ -25,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // ---- Có data ----
     list.innerHTML = items.map((it, i) => `
       <div class="card" style="padding:12px;cursor:pointer;${it.id === currentId ? 'border-color:#7fd4e8' : ''}" data-id="${it.id}">
         <div style="display:flex;justify-content:space-between;margin-bottom:6px">

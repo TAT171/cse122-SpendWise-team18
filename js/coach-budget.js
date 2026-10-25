@@ -1,42 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
-    /* ---------- Seed budgets ---------- */
-    if (!DB.all('budgets').length) {
-        [
-            {
-                id: 'b-1', client: 'Nguyễn Minh Anh', month: '2026-10', total: 20000000, spent: 12680000,
-                lines: [
-                    { cat: 'Ăn uống', plan: 4000000, actual: 3120000 },
-                    { cat: 'Di chuyển', plan: 2000000, actual: 2450000 },
-                    { cat: 'Mua sắm', plan: 2500000, actual: 3100000 }
-                ]
-            },
-            {
-                id: 'b-2', client: 'Trần Quốc Bảo', month: '2026-10', total: 15500000, spent: 9800000,
-                lines: [
-                    { cat: 'Ăn uống', plan: 3000000, actual: 2800000 },
-                    { cat: 'Di chuyển', plan: 1500000, actual: 1800000 }
-                ]
-            }
-        ].forEach(b => DB.insert('budgets', b));
-    }
-    if (!DB.all('coachNotes').length) {
-        DB.insert('coachNotes', {
-            client: 'Nguyễn Minh Anh',
-            title: 'Điều chỉnh ngân sách mua sắm',
-            content: 'Đề nghị giảm mua sắm 500.000 đ và chuyển sang quỹ khẩn cấp.',
-            created: '2026-10-01'
-        });
-    }
-
-    const clientSelect = document.querySelector('select.btn');
+    const clientSelect = document.getElementById('clientSelector');
     const noteForm = document.getElementById('noteForm');
     const noteTextarea = document.getElementById('note');
     const noteTitleIn = noteForm?.querySelector('input[type="text"]');
+    const urlParams = new URLSearchParams(window.location.search);
+    const clientIdFromUrl = urlParams.get('id');
     let currentClient = clientSelect?.value || 'Nguyễn Minh Anh';
-
-    /* =========================================================
-       CLIENT DROPDOWN + LOAD BUDGET
-       ========================================================= */
+    
+    if (clientIdFromUrl) {
+        const client = DB.get('coachClients', clientIdFromUrl);
+        if (client) {
+            currentClient = client.n; 
+        }
+    }
     function renderClientOptions() {
         if (!clientSelect) return;
         const clients = Array.from(new Set(DB.all('budgets').map(b => b.client)));
@@ -79,21 +55,23 @@ document.addEventListener('DOMContentLoaded', () => {
             }).join('');
         }
 
-        const lastNote = DB.all('coachNotes').filter(n => n.client === currentClient).slice(-1)[0];
-        if (lastNote && noteTitleIn && noteTextarea) {
+    const lastNote = DB.all('coachNotes').filter(n => n.client === currentClient).slice(-1)[0];
+    if (noteTitleIn && noteTextarea) {
+        if (lastNote) {
             noteTitleIn.value = lastNote.title;
             noteTextarea.value = lastNote.content;
+        } else {
+            noteTitleIn.value = '';       
+            noteTextarea.value = '';       
         }
     }
+}    
 
     clientSelect?.addEventListener('change', () => {
         currentClient = clientSelect.value;
         loadBudget();
     });
 
-    /* =========================================================
-       INJECT: Budget edit modal
-       ========================================================= */
     if (!document.getElementById('budgetModal')) {
         const m = document.createElement('div');
         m.className = 'modal-backdrop';

@@ -1,11 +1,7 @@
-/* =========================================================
-   Admin – User Management (full CRUD + disabled button)
-   ========================================================= */
 document.addEventListener('DOMContentLoaded', () => {
   const tbody = document.getElementById('userBody');
   if (!tbody) return;
 
-  /* ---------- Inject edit modal ---------- */
   if (!document.getElementById('userEditModal')) {
     const m = document.createElement('div');
     m.className = 'modal-backdrop';
@@ -52,7 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function render() {
     const users = DB.all('users');
 
-    // ---- Empty state ----
     if (!users.length) {
       tbody.innerHTML = '<tr><td colspan="6" style="border:none">' +
         UI.emptyState(
@@ -63,7 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // ---- Có data ----
     tbody.innerHTML = users.map(u => `
       <tr data-id="${u.id}">
         <td><input type="checkbox" class="userChk" style="accent-color:#4db8d4;width:15px;height:15px"></td>
@@ -78,15 +72,12 @@ document.addEventListener('DOMContentLoaded', () => {
     updateDisableBtn();
   }
 
-  /* ---------- Disabled state cho nút "Vô hiệu hóa" ---------- */
     function updateDisableBtn() {
     const count = tbody.querySelectorAll('.userChk:checked').length;
 
-    // Cập nhật text "Đã chọn X người dùng"
     const infoEl = document.querySelector('[data-selected-info]');
     if (infoEl) infoEl.textContent = 'Đã chọn ' + count + ' người dùng';
 
-    // Disable nút "Vô hiệu hóa" khi chưa chọn ai
     document.querySelectorAll('.btn.danger').forEach(b => {
       if (/Vô hiệu hóa/.test(b.textContent)) b.disabled = count === 0;
     });
@@ -103,7 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
     openModal('userEditModal');
   });
 
-  /* ---------- Modal disable ---------- */
   document.querySelectorAll('[onclick*="openModal(\'disableModal\')"]').forEach(b => {
     b.onclick = () => {
       if (!tbody.querySelectorAll('.userChk:checked').length) {
@@ -114,7 +104,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   });
 
-  /* ---------- Mời tài khoản ---------- */
   document.querySelectorAll('button').forEach(b => {
     if (b.textContent.trim() === 'Gửi lời mời') {
       b.onclick = () => {
@@ -150,7 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
     render();
     toast('Đã vô hiệu hóa ' + ids.length + ' tài khoản', 'er');
   };
-  // ---- Skeleton loading lần đầu ----
   if (!tbody.dataset.initDone) {
     tbody.innerHTML = UI.skeletonRows(4, 6);
     setTimeout(() => {

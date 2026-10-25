@@ -1,7 +1,3 @@
-/* =========================================================
-   User Dashboard – AI Spending Pattern Insight
-   ========================================================= */
-
 async function runInsight() {
   const wrap = document.getElementById('aiDashBody');
   if (!wrap) return;
@@ -106,8 +102,66 @@ function renderDashboard() {
   }
 }
 
+let activeNoteIndex = 0;
+
+function renderCoachNotes() {
+  const tabsEl = document.getElementById('coachNoteTabs');
+  const bodyEl = document.getElementById('coachNoteBody');
+  const countEl = document.getElementById('coachNoteCount');
+  if (!tabsEl || !bodyEl) return;
+
+  const notes = DB.all('coachNotes')
+    .filter(n => !n.source && n.client === 'Nguyễn Minh Anh')
+    .sort((a, b) => new Date(b.created) - new Date(a.created));
+
+  if (countEl) countEl.textContent = notes.length + ' ghi chú';
+
+  if (!notes.length) {
+    tabsEl.innerHTML = '';
+    bodyEl.innerHTML = `
+      <div class="empty" style="padding:24px 0">
+        <div style="color:var(--tx3);font-size:13px">Chưa có ghi chú nào từ Huấn luyện viên.</div>
+      </div>`;
+    return;
+  }
+
+  if (activeNoteIndex >= notes.length) activeNoteIndex = 0;
+
+  tabsEl.innerHTML = notes.map((n, i) => `
+    <button
+      class="tab ${i === activeNoteIndex ? 'active' : ''}"
+      onclick="switchCoachNote(${i})"
+      role="tab"
+      aria-selected="${i === activeNoteIndex}"
+      aria-controls="coachNoteBody"
+    >
+      📝 ${UI.esc(n.title)}
+    </button>
+  `).join('');
+
+  const note = notes[activeNoteIndex];
+  bodyEl.innerHTML = `
+    <article style="padding:16px;background:var(--pri-s);border-left:3px solid var(--pri-d);border-radius:8px">
+      <header style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+        <div style="font-weight:600;font-size:14px">${UI.esc(note.title)}</div>
+        <span class="badge muted" style="font-size:11.5px">${fmtDate(note.created)}</span>
+      </header>
+      <p style="color:var(--tx2);font-size:13.5px;line-height:1.7">${UI.esc(note.content)}</p>
+      <footer style="margin-top:12px;font-size:11.5px;color:var(--tx3);display:flex;justify-content:space-between;align-items:center">
+        <span>— HLV Thu Trang</span>
+        <span>Ghi chú ${activeNoteIndex + 1} / ${notes.length}</span>
+      </footer>
+    </article>
+  `;
+}
+
+window.switchCoachNote = function(index) {
+  activeNoteIndex = index;
+  renderCoachNotes();
+};
 document.addEventListener('DOMContentLoaded', () => {
   renderDashboard();
+  renderCoachNotes();
 });
 window.runInsight = runInsight;
 window.saveInsightNote = saveInsightNote;
