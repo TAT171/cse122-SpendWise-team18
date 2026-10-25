@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Tài nguyên – SpendWise</title>
+  <title>Tài nguyên - SpendWise</title>
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/components.css">
@@ -15,12 +16,14 @@
   <div id="app-root" data-role="coach" data-crumbs="Huấn luyện viên|Tài nguyên"></div>
 
   <template id="page-content">
-    <div
+  
+    <header
       style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:22px">
-      <div>
+      
+      <hgroup>
         <h1 class="page-title">Quản lý tài nguyên</h1>
         <p class="page-sub">Soạn và gửi duyệt nội dung hướng dẫn tài chính.</p>
-      </div>
+      </hgroup>
       <button class="btn primary"
         onclick="document.getElementById('resForm').scrollIntoView({behavior:'smooth'});toast('Cuộn tới form soạn tài nguyên','wr')">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -28,23 +31,26 @@
         </svg>
         Tạo tài nguyên
       </button>
-    </div>
-    <div class="table-wrap" style="margin-bottom:20px">
+    </header>
+
+    <section class="table-wrap" style="margin-bottom:20px">
       <table>
         <thead>
           <tr>
-            <th>Tiêu đề</th>
-            <th>Danh mục</th>
-            <th>Trạng thái</th>
-            <th>Cập nhật</th>
-            <th>Thao tác</th>
+            <th scope="col">Tiêu đề</th>
+            <th scope="col">Danh mục</th>
+            <th scope="col">Trạng thái</th>
+            <th scope="col">Cập nhật</th>
+            <th scope="col">Thao tác</th>
           </tr>
         </thead>
         <tbody id="resBody"></tbody>
       </table>
-    </div>
-    <div class="grid g2">
-      <div class="card">
+    </section>
+
+    <section class="grid g2">
+      
+      <article class="card">
         <div class="section-title">Soạn tài nguyên <span class="badge muted">Bản nháp</span></div>
         <form id="resForm">
           <div class="field" style="margin-bottom:12px"><label>Tiêu đề</label><input type="text"
@@ -67,8 +73,9 @@
             <button class="btn primary" type="submit">Gửi duyệt</button>
           </div>
         </form>
-      </div>
-      <div class="card">
+      </article>
+
+      <article class="card">
         <div class="section-title">Kiểm tra trước khi gửi</div>
         <ul style="display:flex;flex-direction:column;gap:10px;font-size:13.5px">
           <li style="display:flex;gap:10px;align-items:center"><span class="badge ok">✓</span> Tiêu đề rõ ràng</li>
@@ -76,8 +83,8 @@
           <li style="display:flex;gap:10px;align-items:center"><span class="badge muted">○</span> Không đưa lời khuyên
             rủi ro</li>
         </ul>
-      </div>
-    </div>
+      </article>
+    </section>
   </template>
 
   <script src="js/core.js"></script>
