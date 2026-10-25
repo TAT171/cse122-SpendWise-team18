@@ -1,61 +1,88 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Tài nguyên – SpendWise</title>
-<link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/layout.css">
-<link rel="stylesheet" href="css/components.css">
-<link rel="stylesheet" href="css/responsive.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Tài nguyên – SpendWise</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
 </head>
+
 <body>
-<div id="app-root" data-role="coach" data-crumbs="Huấn luyện viên|Tài nguyên"></div>
+  <div id="app-root" data-role="coach" data-crumbs="Huấn luyện viên|Tài nguyên"></div>
 
-<template id="page-content">
-  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:22px">
-    <div><h1 class="page-title">Quản lý tài nguyên</h1><p class="page-sub">Soạn và gửi duyệt nội dung hướng dẫn tài chính.</p></div>
-    <button class="btn primary" onclick="document.getElementById('resForm').scrollIntoView({behavior:'smooth'});toast('Cuộn tới form soạn tài nguyên','wr')">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-      Tạo tài nguyên
-    </button>
-  </div>
-  <div class="table-wrap" style="margin-bottom:20px">
-    <table><thead><tr><th>Tiêu đề</th><th>Danh mục</th><th>Trạng thái</th><th>Cập nhật</th><th>Thao tác</th></tr></thead>
-      <tbody id="resBody"></tbody>
-    </table>
-  </div>
-  <div class="grid g2">
-    <div class="card">
-      <div class="section-title">Soạn tài nguyên <span class="badge muted">Bản nháp</span></div>
-      <form id="resForm">
-        <div class="field" style="margin-bottom:12px"><label>Tiêu đề</label><input type="text" value="Ba cách giảm chi tiêu cuối tuần" data-required><span class="err"></span></div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
-          <div class="field"><label>Danh mục</label><select><option>Ngân sách</option></select></div>
-          <div class="field"><label>Đối tượng</label><select><option>Người mới</option></select></div>
-        </div>
-        <div class="field" style="margin-bottom:12px"><label>Mô tả ngắn</label><input type="text" value="Các mẹo nhỏ dễ thực hiện trong 7 ngày."></div>
-        <div class="field" style="margin-bottom:14px"><label>Nội dung</label><textarea id="resBodyInput" placeholder="Nhập nội dung tài nguyên..." data-required></textarea><span class="err"></span></div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap">
-          <button class="btn" type="button" onclick="toast('Đã lưu bản nháp','ok')">Lưu bản nháp</button>
-          <button class="btn" type="button" onclick="toast('Đang tải xem trước…','wr')">Xem trước</button>
-          <button class="btn primary" type="submit">Gửi duyệt</button>
-        </div>
-      </form>
+  <template id="page-content">
+    <div
+      style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:22px">
+      <div>
+        <h1 class="page-title">Quản lý tài nguyên</h1>
+        <p class="page-sub">Soạn và gửi duyệt nội dung hướng dẫn tài chính.</p>
+      </div>
+      <button class="btn primary"
+        onclick="document.getElementById('resForm').scrollIntoView({behavior:'smooth'});toast('Cuộn tới form soạn tài nguyên','wr')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 5v14M5 12h14" />
+        </svg>
+        Tạo tài nguyên
+      </button>
     </div>
-    <div class="card">
-      <div class="section-title">Kiểm tra trước khi gửi</div>
-      <ul style="display:flex;flex-direction:column;gap:10px;font-size:13.5px">
-        <li style="display:flex;gap:10px;align-items:center"><span class="badge ok">✓</span> Tiêu đề rõ ràng</li>
-        <li style="display:flex;gap:10px;align-items:center"><span class="badge ok">✓</span> Có ví dụ VND</li>
-        <li style="display:flex;gap:10px;align-items:center"><span class="badge muted">○</span> Không đưa lời khuyên rủi ro</li>
-      </ul>
+    <div class="table-wrap" style="margin-bottom:20px">
+      <table>
+        <thead>
+          <tr>
+            <th>Tiêu đề</th>
+            <th>Danh mục</th>
+            <th>Trạng thái</th>
+            <th>Cập nhật</th>
+            <th>Thao tác</th>
+          </tr>
+        </thead>
+        <tbody id="resBody"></tbody>
+      </table>
     </div>
-  </div>
-</template>
+    <div class="grid g2">
+      <div class="card">
+        <div class="section-title">Soạn tài nguyên <span class="badge muted">Bản nháp</span></div>
+        <form id="resForm">
+          <div class="field" style="margin-bottom:12px"><label>Tiêu đề</label><input type="text"
+              value="Ba cách giảm chi tiêu cuối tuần" data-required><span class="err"></span></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+            <div class="field"><label>Danh mục</label><select>
+                <option>Ngân sách</option>
+              </select></div>
+            <div class="field"><label>Đối tượng</label><select>
+                <option>Người mới</option>
+              </select></div>
+          </div>
+          <div class="field" style="margin-bottom:12px"><label>Mô tả ngắn</label><input type="text"
+              value="Các mẹo nhỏ dễ thực hiện trong 7 ngày."></div>
+          <div class="field" style="margin-bottom:14px"><label>Nội dung</label><textarea id="resBodyInput"
+              placeholder="Nhập nội dung tài nguyên..." data-required></textarea><span class="err"></span></div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn" type="button" onclick="toast('Đã lưu bản nháp','ok')">Lưu bản nháp</button>
+            <button class="btn" type="button" onclick="toast('Đang tải xem trước…','wr')">Xem trước</button>
+            <button class="btn primary" type="submit">Gửi duyệt</button>
+          </div>
+        </form>
+      </div>
+      <div class="card">
+        <div class="section-title">Kiểm tra trước khi gửi</div>
+        <ul style="display:flex;flex-direction:column;gap:10px;font-size:13.5px">
+          <li style="display:flex;gap:10px;align-items:center"><span class="badge ok">✓</span> Tiêu đề rõ ràng</li>
+          <li style="display:flex;gap:10px;align-items:center"><span class="badge ok">✓</span> Có ví dụ VND</li>
+          <li style="display:flex;gap:10px;align-items:center"><span class="badge muted">○</span> Không đưa lời khuyên
+            rủi ro</li>
+        </ul>
+      </div>
+    </div>
+  </template>
 
-<script src="js/core.js"></script>
-<script src="js/layout.js"></script>
-<script src="js/coach-resources.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/coach-resources.js"></script>
 </body>
+
 </html>

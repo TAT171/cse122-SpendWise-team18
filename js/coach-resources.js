@@ -1,6 +1,4 @@
-/* =========================================================
-   Coach – Resource Management (full CRUD)
-   ========================================================= */
+
 document.addEventListener('DOMContentLoaded', () => {
   const tbody = document.getElementById('resBody');
   if (!tbody) return;
