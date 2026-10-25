@@ -45,7 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
   function filterClients() {
     const allClients = DB.all('coachClients');
     
-    // Chuẩn hóa chuỗi tìm kiếm bỏ khoảng trắng đầu cuối và chuyển về chữ thường
     const searchTerm = nameInput ? nameInput.value.trim().toLowerCase() : '';
     const selectedRisk = riskSelect ? riskSelect.value : '';
 

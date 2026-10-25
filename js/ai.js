@@ -17,7 +17,7 @@ const AI = {
      ========================================================= */
   CATEGORY_RULES: [
     {
-      keywords: ['cafe','coffee','highlands','starbuck','trà sữa','quán','food','ăn','nhà hàng','phở','cơm','bún'],
+      keywords: ['cafe','coffee','highlands','starbuck','trà sữa','quán','food','ăn','nhà hàng','phở','cơm','bún','Phúc Long'],
       cat: 'Ăn uống',
       confidence: 0.94,
       reason: 'Từ khoá trong mô tả khớp với nhóm chi tiêu ăn uống và lịch sử giao dịch tương tự.'
@@ -61,7 +61,6 @@ const AI = {
       return {
         success: false,
         error: 'Vui lòng nhập mô tả giao dịch (ví dụ: "Phúc Long 96.000đ") trước khi phân loại.',
-        // backward compat
         cat: 'Khác', confidence: 0, reason: '', uncertain: true
       };
     }
@@ -71,21 +70,19 @@ const AI = {
       r.keywords.some(kw => lower.includes(kw))
     );
 
-    // Fallback rule 
     if (!matched) {
       return {
         success: true,
         data: {
           cat: 'Khác',
-          confidence: '55%',
+          confidence: 0.55,
           reason: 'AI chưa chắc chắn – mô tả chưa đủ đặc trưng để phân loại chính xác.',
           disclaimer: this.DISCLAIMER
         },
-        // backward compat
-        cat: 'Khác',
-        confidence: 0.55,
-        reason: 'AI chưa chắc chắn – mô tả chưa đủ đặc trưng để phân loại chính xác.',
-        uncertain: true
+          cat: 'Khác',
+          confidence: 0.55,
+          reason: 'AI chưa chắc chắn – mô tả chưa đủ đặc trưng để phân loại chính xác.',
+          uncertain: true
       };
     }
 
@@ -93,11 +90,10 @@ const AI = {
       success: true,
       data: {
         cat: matched.cat,
-        confidence: Math.round(matched.confidence * 100) + '%',
+        confidence: matched.confidence,
         reason: matched.reason,
         disclaimer: this.DISCLAIMER
       },
-      // backward compat
       cat: matched.cat,
       confidence: matched.confidence,
       reason: matched.reason,
@@ -115,30 +111,29 @@ const AI = {
       return {
         success: false,
         error: 'Không đủ dữ liệu để đưa ra đề xuất. Cần ít nhất 3 giao dịch trong 30 ngày.',
-        // backward compat
         insufficient: true,
         message: 'Không đủ dữ liệu để đưa ra đề xuất.'
       };
     }
 
-    const total = rows.reduce((s, r) => s + (r.amount < 0 ? -r.amount : 0), 0);
+    const total = rows.reduce((s, r) => s + (r.amt < 0 ? -r.amt : 0), 0);
     const byCat = {};
-    rows.filter(r => r.amount < 0).forEach(r => {
-      byCat[r.category] = (byCat[r.category] || 0) + (-r.amount);
+    rows.filter(r => r.amt < 0).forEach(r => {
+      byCat[r.cat] = (byCat[r.cat] || 0) + (-r.amt);
     });
     const top = Object.entries(byCat).sort((a, b) => b[1] - a[1])[0];
 
     const anomalies = rows
-      .filter(r => r.amount < -500000)
+      .filter(r => r.amt < -500000)
       .slice(0, 2)
       .map(r => ({
         label: r.desc + ' – ' + r.date,
-        amount: r.amount
+        amount: r.amt
       }));
 
-    const confidence = rows.length >= 10 ? '92%'
-                     : rows.length >= 5  ? '78%'
-                     : '65%';
+    const confidence = rows.length >= 10 ? 0.92
+                     : rows.length >= 5  ? 0.78
+                     : 0.65;
 
     const summary = 'Tổng chi tháng này là ' + this._money(total) +
       '. Danh mục chi nhiều nhất: "' + (top ? top[0] : '—') + '".';
@@ -186,8 +181,8 @@ const AI = {
       };
     }
 
-    const months = Math.max(1,
-      Math.round((new Date(deadline) - new Date()) / (1000 * 60 * 60 * 24 * 30)));
+    const daysLeft = (new Date(deadline) - new Date()) / (1000 * 60 * 60 * 24);
+    const months = Math.max(1, Math.round(daysLeft / 30.44));
 
     if (months <= 0) {
       return {
@@ -199,7 +194,7 @@ const AI = {
     }
 
     const perMonth = Math.round(amount / months);
-    const confidence = perMonth > 0 ? '88%' : '60%';
+    const confidence = perMonth > 0 ? 0.88 : 0.60;
 
     const steps = [
       'Giảm ~' + this._money(Math.round(perMonth * 0.15)) + ' chi tiêu không thiết yếu mỗi tháng.',
@@ -224,6 +219,27 @@ const AI = {
       reason
     };
   }
+};
+
+AI.renderFailure = function({ message, onEdit, onRetry, onReport }) {
+  return `<div class="ai-result" style="border-color:#fdeaea;background:#fef7f7">
+    <div style="color:#e05252;font-weight:600;margin-bottom:8px">⚠ Không thể xử lý</div>
+    <div style="font-size:13.5px;margin-bottom:12px">${this._esc ? this._esc(message) : message}</div>
+    <div class="ai-actions">
+      <button class="btn primary" onclick="${onRetry}">Thử lại</button>
+      <button class="btn" onclick="${onEdit}">Sửa dữ liệu</button>
+      <button class="btn" onclick="${onReport}">Báo cáo</button>
+    </div>
+  </div>`;
+};
+
+AI.reportFailure = function(title, reason) {
+  DB.insert('feedback', {
+    id: 'FB-' + Math.floor(1000 + Math.random()*9000),
+    status: 'open', level: 'Trung bình',
+    title: title, desc: reason, assignee: 'Chưa phân công', timeline: []
+  });
+  toast('Đã gửi báo cáo cho kiểm duyệt viên', 'wr');
 };
 
 window.AI = AI;
