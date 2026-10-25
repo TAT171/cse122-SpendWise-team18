@@ -15,7 +15,6 @@
 <div id="app-root" data-role="user" data-crumbs="Người dùng|Giao dịch"></div>
 
 <template id="page-content">
-  <!-- HEADER -->
   <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:20px">
     <div>
       <h1 class="page-title">Quản lý giao dịch</h1>
@@ -27,30 +26,30 @@
     </button>
   </div>
 
-  <!-- TOOLBAR -->
-  <div class="toolbar">
+  <section class="toolbar" aria-label="Bộ lọc giao dịch">
     <div class="search">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-      <input type="text" id="txQ" placeholder="Tìm mô tả hoặc số tiền...">
+      <input type="text" id="txQ" placeholder="Tìm mô tả hoặc số tiền..." aria-label="Tìm kiếm giao dịch">
     </div>
-    <select id="txDateRange" onchange="renderTx()">
-      <option value="">01/10 – 31/10</option>
-      <option value="all">Tất cả thời gian</option>
+    <select id="txDateRange" onchange="renderTx()" aria-label="Lọc theo thời gian">
+      <option value="all" selected>Tất cả thời gian</option>
+      <option value="2026-10">Tháng 10/2026</option>
+      <option value="2026-09">Tháng 9/2026</option>
+      <option value="2026-08">Tháng 8/2026</option>
     </select>
-    <select id="txCat" onchange="renderTx()">
-      <option value="">Danh mục</option>
+    <select id="txCat" onchange="renderTx()" aria-label="Lọc theo danh mục">
+      <option value="">Tất cả danh mục</option>
       <option>Ăn uống</option><option>Di chuyển</option><option>Mua sắm</option>
       <option>Giải trí</option><option>Hoá đơn</option><option>Thu nhập</option>
     </select>
-    <select id="txType" onchange="renderTx()">
-      <option value="">Thu / Chi</option>
+    <select id="txType" onchange="renderTx()" aria-label="Lọc theo loại giao dịch">
+      <option value="">Tất cả Thu / Chi</option>
       <option value="in">Thu</option>
       <option value="out">Chi</option>
     </select>
-  </div>
+  </section>
 
-  <!-- TABLE -->
-  <div class="table-wrap" style="margin-bottom:24px">
+  <section class="table-wrap" style="margin-bottom:24px" aria-label="Bảng giao dịch">
     <table id="txTable">
       <thead>
         <tr>
@@ -65,56 +64,52 @@
       <tbody></tbody>
     </table>
     <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 16px;color:var(--tx2);font-size:13px">
-      <span id="txCount">01/24</span>
-      <div style="display:flex;gap:8px">
-        <button class="btn" style="background:var(--pri);border-color:var(--pri-d);color:var(--sb-tx);font-weight:600" onclick="toast('Trang trước','wr')">Trước</button>
-        <button class="btn" onclick="toast('Trang sau','wr')">Sau</button>
+      <span id="txCount">0-0 / 0</span>
+      <div style="display:flex;gap:8px" id="txPager">
       </div>
-    </div>
-  </div>
+    </div>  
+  </section>
 
-  <!-- FORM THÊM GIAO DỊCH (INLINE) -->
-  <div class="card" id="addForm" style="padding:24px; position:relative;">
+  <section class="card" id="addForm" style="padding:24px; position:relative;">
     <button class="icon-btn" style="position:absolute;top:20px;right:20px" onclick="window.scrollTo({top:0,behavior:'smooth'})">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
     </button>
-
-    <h2 style="font-size:18px;font-weight:600;margin-bottom:20px">Thêm giao dịch</h2>
+    <header>
+      <h2 style="font-size:18px;font-weight:600;margin-bottom:20px">Thêm giao dịch</h2>
+    </header>
 
     <form id="txForm" style="display:grid;grid-template-columns: 1.4fr 1fr; gap:16px; max-width:800px;">
-  <div class="field">
-    <label>Mô tả</label>
-    <input type="text" id="txDesc" value="Phúc Long" data-required>
-  </div>
-  <div class="field">
-    <label>Số tiền <span style="color:var(--tx3);font-weight:400;font-size:11.5px">(âm = chi, dương = thu)</span></label>
-    <input type="text" id="txAmt" value="-96.000 đ" data-required>
-  </div>
-  <div class="field">
-    <label>Ngày</label>
-    <input type="date" id="txDate" value="2026-10-01">
-  </div>
-  <div class="field">
-    <label>Danh mục</label>
-    <select id="txCategory">
-      <option>Ăn uống</option>
-      <option>Di chuyển</option>
-      <option>Mua sắm</option>
-      <option>Giải trí</option>
-      <option>Hoá đơn</option>
-      <option>Thu nhập</option>
-      <option>Khác</option>
-    </select>
-  </div>
-</form>
+      <div class="field">
+        <label>Mô tả</label>
+        <input type="text" id="txDesc" value="Phúc Long" data-required>
+      </div>
+      <div class="field">
+        <label>Số tiền <span style="color:var(--tx3);font-weight:400;font-size:11.5px">(âm = chi, dương = thu)</span></label>
+        <input type="text" id="txAmt" value="-96.000 đ" data-required>
+      </div>
+      <div class="field">
+        <label>Ngày</label>
+        <input type="date" id="txDate" value="2026-10-01">
+      </div>
+      <div class="field">
+        <label>Danh mục</label>
+        <select id="txCategory">
+          <option>Ăn uống</option>
+          <option>Di chuyển</option>
+          <option>Mua sắm</option>
+          <option>Giải trí</option>
+          <option>Hoá đơn</option>
+          <option>Thu nhập</option>
+          <option>Khác</option>
+        </select>
+      </div>
+    </form>
 
-    <!-- NÚT HÀNH ĐỘNG -->
     <div style="display:flex;gap:12px;margin-top:20px">
       <button class="btn primary" id="saveTx" type="button" style="border:1px solid #1b2b33; font-weight:600;">Lưu giao dịch</button>
       <button class="btn" type="button" onclick="resetForm()">Hủy</button>
     </div>
 
-    <!-- AI PANEL NẰM NGANG BÊN DƯỚI -->
     <div class="ai-panel" style="margin-top:24px">
       <div class="ai-head">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.8 5.2L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.8z"/></svg>
@@ -124,7 +119,7 @@
           <button class="btn primary" type="button" id="runCategorize">Chạy phân loại</button>
       </div>
     </div>
-  </div>
+  </section>
 
 </template>
 
