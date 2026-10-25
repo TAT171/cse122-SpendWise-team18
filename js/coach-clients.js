@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const rc = { 'Thấp': 'ok', 'Trung bình': 'wr', 'Cao': 'er' };
 
-  //
+  
   const clients = [
     {id:'c-1', n:'Nguyễn Minh Anh', b:20000000, g:60, r:'Thấp',        u:'1 giờ trước'},
     {id:'c-2', n:'Trần Quốc Bảo',   b:15500000, g:42, r:'Cao',         u:'Hôm qua'},
