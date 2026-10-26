@@ -26,9 +26,9 @@ Các chức năng chính bao gồm:
 
 | STT | Họ và tên | MSSV | Phân công |
 |---|---|---|---|
-| 1 | Nguyễn Duy Quang | [Điền MSSV] | Phụ trách User & Design System |
-| 2 | Lê Thị Ly | [Điền MSSV] | Phụ trách Coach & Core/AI Infrastructure |
-| 3 | Trần Anh Thư | [Điền MSSV] | Phụ trách Moderator, Admin & Layout/Responsive |
+| 1 | Nguyễn Duy Quang | 2551060672 | Phụ trách User & Design System |
+| 2 | Lê Thị Ly | 2551060648 | Phụ trách Coach & Core/AI Infrastructure |
+| 3 | Trần Anh Thư | 2551060696 | Phụ trách Moderator, Admin & Layout/Responsive |
 
 
 ## 3. Công nghệ sử dụng
@@ -105,7 +105,6 @@ Tài khoản kiểm thử được cung cấp để hỗ trợ việc trải ngh
 | Email | `minhanh@email.com` |
 | Mật khẩu | `12345678` |
 
-> **Lưu ý:** Tài khoản trên chỉ sử dụng được nếu đã được khởi tạo trong mã nguồn hoặc dữ liệu mẫu của dự án.
 
 ## 6. Danh sách màn hình
 
@@ -180,8 +179,6 @@ Luồng nghiệp vụ của hệ thống được tổ chức như sau:
 6. Moderator kiểm tra, phê duyệt hoặc từ chối tài nguyên.
 7. Admin quản lý các thành phần hệ thống và theo dõi hoạt động tổng quan.
 
-> **Lưu ý:** Các chức năng xem dữ liệu giữa những vai trò cần tuân thủ phạm vi quyền truy cập được triển khai trong ứng dụng.
-
 ## 8. Tính năng AI
 
 SpendWise tích hợp ba tính năng AI mô phỏng nhằm hỗ trợ người dùng quản lý tài chính cá nhân.
@@ -242,8 +239,6 @@ Các tính năng AI được thiết kế để hỗ trợ trải nghiệm ngư�
 
 ## 9. Cấu trúc thư mục
 
-Cấu trúc thư mục dự kiến của dự án:
-
 ```text
 cse122-SpendWise-team18/
 ├── css/
@@ -279,6 +274,7 @@ cse122-SpendWise-team18/
 | `css/` | Chứa các file CSS phục vụ giao diện, component, layout và responsive |
 | `js/` | Chứa logic nghiệp vụ, dữ liệu và các chức năng JavaScript |
 | `docs/` | Chứa tài liệu mô tả màn hình, báo cáo sử dụng AI và video minh chứng |
+| `index.html` | Màn hình bắt đầu|
 | `login.html` | Giao diện đăng nhập |
 | `user-*.html` | Các giao diện dành cho User |
 | `coach-*.html` | Các giao diện dành cho Coach |
@@ -295,16 +291,6 @@ Danh sách video và thông tin minh chứng được trình bày tại:
 
 [`docs/obs-evidence.md`]
 
-Tài liệu minh chứng cần được cập nhật theo yêu cầu của học phần, bao gồm các thông tin liên quan như:
-
-- Tên thành viên thực hiện.
-- Nội dung công việc được ghi hình.
-- Thời gian thực hiện.
-- Đường dẫn video minh chứng.
-- Nội dung live coding hoặc phần trình diễn chức năng.
-
-Nếu yêu cầu chấm điểm quy định số lượng video cụ thể, cần kiểm tra để bảo đảm tài liệu đáp ứng đầy đủ yêu cầu đó.
-
 ## 11. Khai báo sử dụng AI
 
 Dự án có sử dụng các công cụ AI trong quá trình phát triển và xây dựng một số chức năng mô phỏng.
@@ -313,21 +299,7 @@ Báo cáo chi tiết được lưu tại:
 
 [`docs/ai-usage-report.md`]
 
-Báo cáo nên trình bày các nội dung sau:
-
-- Tên công cụ AI đã sử dụng.
-- Mục đích sử dụng từng công cụ.
-- Prompt hoặc yêu cầu đã đưa ra.
-- Nội dung do AI hỗ trợ tạo ra.
-- Những vấn đề hoặc lỗi phát sinh từ kết quả AI.
-- Cách sinh viên kiểm tra, chỉnh sửa và hoàn thiện kết quả.
-- Phần công việc do các thành viên trực tiếp thực hiện.
-
-Việc khai báo cần phản ánh đúng quá trình phát triển thực tế của nhóm.
-
 ## 12. Hạn chế đã biết
-
-Phiên bản hiện tại của SpendWise còn một số hạn chế.
 
 ### 12.1. Hạn chế về lưu trữ dữ liệu
 
