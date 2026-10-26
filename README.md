@@ -56,10 +56,9 @@ Dự án được xây dựng bằng các công nghệ web cơ bản, không s�
 
 ## 4. Link triển khai (Live Deployment)
 
-- **Link Deploy:** [Điền link triển khai Vercel/GitHub Pages]
+- **Link Deploy:** https://cse122-spendwise-team18.vercel.app/
 - **Link thiết kế Figma/Canva:** https://canva.link/84aezfp2ua6gn20
 
-> Đảm bảo các đường dẫn được cập nhật chính xác và có thể truy cập trước khi nộp bài.
 
 ## 5. Hướng dẫn chạy cục bộ (Local Setup)
 
